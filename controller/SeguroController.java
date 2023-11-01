@@ -38,4 +38,9 @@ public class SeguroController implements IController{
 		
 	}
 
+	@Override
+	public void imprimirUm(String apolice) {
+
+	}
+
 }

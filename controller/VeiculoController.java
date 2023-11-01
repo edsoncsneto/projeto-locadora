@@ -39,4 +39,9 @@ public class VeiculoController implements IController{
 		
 	}
 
+	@Override
+	public void imprimirUm(String placa) {
+
+	}
+
 }
