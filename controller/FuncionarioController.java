@@ -33,17 +33,17 @@ public class FuncionarioController implements IController{
 			switch(opcao){
 				case "1":
 					System.out.println("Digite a nova matrícula: ");
-					String novaMatricula = sc.next();
+					String novaMatricula = sc.nextLine();
 					((FuncionarioModel) obj).setNome(novaMatricula);
 					break;
 				case "2":
 					System.out.println("Digite o novo nome: ");
-					String novoNome = sc.next();
+					String novoNome = sc.nextLine();
 					((FuncionarioModel) obj).setNome(novoNome);
 					break;
 				case "3":
 					System.out.println("Digite o novo CPF: ");
-					String novoCpf = sc.next();
+					String novoCpf = sc.nextLine();
 					((FuncionarioModel) obj).setCpf(novoCpf);
 					break;
 				case "4":
@@ -54,7 +54,7 @@ public class FuncionarioController implements IController{
 				case "5":
 					boolean verificacao=false;
 					System.out.println("Digite matrícula do novo supervisor: ");
-					String matriculaSupervisor = sc.next();
+					String matriculaSupervisor = sc.nextLine();
 					for(FuncionarioModel supervisor:funcionarios){
 						if(supervisor.getMatricula().equals(matriculaSupervisor)){
 							((FuncionarioModel) obj).setSupervisor(supervisor);
