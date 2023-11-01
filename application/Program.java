@@ -19,7 +19,6 @@ public class Program {
 		f.imprimirUm("123");
 		f.editar(funcionarioModel2);
 		f.imprimir();
-		f.imprimirUm("789");
 	}
 
 }
