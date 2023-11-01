@@ -3,6 +3,7 @@ package model;
 import java.util.Date;
 
 public class LocacaoModel {
+	private String cod_locacao;
 	private ClientePFModel clientePF;
 	private ClientePJModel clientePJ;
 	private Date dataInicio;
@@ -11,8 +12,9 @@ public class LocacaoModel {
 	private FuncionarioModel funcionario;
 
 	// construtor para cliente pf
-	public LocacaoModel(ClientePFModel clientePF, Date dataInicio, Date dataFim, VeiculoModel[] veiculos,
+	public LocacaoModel(String cod_locacao, ClientePFModel clientePF, Date dataInicio, Date dataFim, VeiculoModel[] veiculos,
 			FuncionarioModel funcionario) {
+		this.cod_locacao = cod_locacao;
 		this.clientePF = clientePF;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
@@ -21,8 +23,9 @@ public class LocacaoModel {
 	}
 
 	// construtor para cliente pj
-	public LocacaoModel(ClientePJModel clientePJ, Date dataInicio, Date dataFim, VeiculoModel[] veiculos,
+	public LocacaoModel(String cod_locacao, ClientePJModel clientePJ, Date dataInicio, Date dataFim, VeiculoModel[] veiculos,
 			FuncionarioModel funcionario) {
+		this.cod_locacao = cod_locacao;
 		this.clientePJ = clientePJ;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
@@ -76,6 +79,14 @@ public class LocacaoModel {
 
 	public void setFuncionario(FuncionarioModel funcionario) {
 		this.funcionario = funcionario;
+	}
+
+	public String getCod_locacao() {
+		return cod_locacao;
+	}
+
+	public void setCod_locacao(String cod_locacao) {
+		this.cod_locacao = cod_locacao;
 	}
 
 	public static void main(String[] args) {

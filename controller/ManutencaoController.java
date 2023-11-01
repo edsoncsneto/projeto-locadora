@@ -20,4 +20,9 @@ public class ManutencaoController implements IController{
 	@Override
 	public void remover(Object obj) {}
 
+	@Override
+	public void imprimirUm(String ordemServico) {
+
+	}
+
 }

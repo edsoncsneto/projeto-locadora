@@ -32,5 +32,10 @@ public class ClienteController implements IController{
 		// TODO Auto-generated method stub
 		
 	}
-	
+
+	@Override
+	public void imprimirUm(String cod_cliente) {
+
+	}
+
 }

@@ -9,5 +9,7 @@ public interface IController {
 	public void imprimir();
 	
 	public void remover(Object obj);
+
+	public void imprimirUm(String id);
 	
 }

@@ -35,4 +35,9 @@ public class LocacaoController implements IController{
 		
 	}
 
+	@Override
+	public void imprimirUm(String cod_locacao) {
+
+	}
+
 }
