@@ -32,23 +32,28 @@ public class FuncionarioController implements IController{
 
 			switch(opcao){
 				case "1":
+					System.out.println("Digite a nova matrícula: ");
 					String novaMatricula = sc.next();
 					((FuncionarioModel) obj).setNome(novaMatricula);
 					break;
 				case "2":
+					System.out.println("Digite o novo nome: ");
 					String novoNome = sc.next();
 					((FuncionarioModel) obj).setNome(novoNome);
 					break;
 				case "3":
+					System.out.println("Digite o novo CPF: ");
 					String novoCpf = sc.next();
 					((FuncionarioModel) obj).setCpf(novoCpf);
 					break;
 				case "4":
+					System.out.println("Digite o novo salário: ");
 					double novoSalario = sc.nextDouble();
 					((FuncionarioModel) obj).setSalario(novoSalario);
 					break;
 				case "5":
 					boolean verificacao=false;
+					System.out.println("Digite matrícula do novo supervisor: ");
 					String matriculaSupervisor = sc.next();
 					for(FuncionarioModel supervisor:funcionarios){
 						if(supervisor.getMatricula().equals(matriculaSupervisor)){
@@ -60,8 +65,8 @@ public class FuncionarioController implements IController{
 						System.out.println("Não foi possível alterar o supervisor. Verifique a matrícula.");
 					}
 					break;
-			}
-
+            }
+            imprimirUm(((FuncionarioModel) obj).getMatricula());
 		}
 	}
 
@@ -83,13 +88,23 @@ public class FuncionarioController implements IController{
 	@Override
 	public void remover(Object obj) {
 		if (obj instanceof FuncionarioModel){
-			for(FuncionarioModel func:funcionarios){
-				if(func.getQuantidadeLocacoes()!=0){
-					System.out.println("Não é possível remover. Há registro desse funcinário em locações.");
-				}else{
-					funcionarios.remove(func);
-				}
-			}
+            boolean supervisiona = false;
+            for(FuncionarioModel func:funcionarios){
+                if(func.getSupervisor() == obj){
+                    System.out.println("Não é possível fazer remoção desse funcionário, pois supervisiona o funcionário de matrícula " + func.getMatricula());
+                    supervisiona = true;
+                }
+            }
+            if(! supervisiona) {
+                for (FuncionarioModel func : funcionarios) {
+                    if (func.getQuantidadeLocacoes() != 0) {
+                        System.out.println("Não é possível remover. Há registro desse funcinário em locações.");
+                    } else {
+                        funcionarios.remove(obj);
+						break;
+                    }
+                }
+            }
 		}
 	}
 
@@ -103,7 +118,7 @@ public class FuncionarioController implements IController{
 				System.out.println(func.getQuantidadeLocacoes());
 				System.out.println(func.getSalario());
 				if(func.getSupervisor() != null){
-					System.out.println(func.getSupervisor());
+					System.out.println(func.getSupervisor().getNome());
 				}
 				System.out.println("-------");
 			}
