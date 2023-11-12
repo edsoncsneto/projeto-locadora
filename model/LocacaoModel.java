@@ -10,6 +10,7 @@ public class LocacaoModel {
 	private Date dataFim;
 	private VeiculoModel[] veiculos;
 	private FuncionarioModel funcionario;
+	private boolean ativo;
 
 	// construtor para cliente pf
 	public LocacaoModel(String cod_locacao, ClientePFModel clientePF, Date dataInicio, Date dataFim, VeiculoModel[] veiculos,
@@ -20,6 +21,7 @@ public class LocacaoModel {
 		this.dataFim = dataFim;
 		this.veiculos = veiculos;
 		this.funcionario = funcionario;
+		this.ativo = true;
 	}
 
 	// construtor para cliente pj
@@ -31,6 +33,7 @@ public class LocacaoModel {
 		this.dataFim = dataFim;
 		this.veiculos = veiculos;
 		this.funcionario = funcionario;
+		this.ativo = true;
 	}
 
 	public ClientePFModel getClientePF() {
@@ -87,6 +90,14 @@ public class LocacaoModel {
 
 	public void setCod_locacao(String cod_locacao) {
 		this.cod_locacao = cod_locacao;
+	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 
 	public static void main(String[] args) {

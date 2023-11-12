@@ -9,6 +9,7 @@ public class VeiculoModel {
 	private String modelo;
 	private SeguroModel seguro;
 	private ManutencaoModel manutencao;
+	private boolean ativo;
 	
 	public VeiculoModel(String placa, String cor, String marca, String categoria, String chassi, String modelo,
 			SeguroModel seguro, ManutencaoModel manutencao) {
@@ -20,8 +21,8 @@ public class VeiculoModel {
 		this.modelo = modelo;
 		this.seguro = seguro;
 		this.manutencao = manutencao;
+		this.ativo = true;
 	}
-	
 
 	public String getPlaca() {
 		return placa;
@@ -102,6 +103,13 @@ public class VeiculoModel {
 		this.manutencao = manutencao;
 	}
 
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

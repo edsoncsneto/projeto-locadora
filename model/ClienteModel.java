@@ -9,6 +9,7 @@ public class ClienteModel {
 	protected String uf;
 	protected String cep;
 	protected String numero;
+	protected boolean ativo;
 
 	public ClienteModel(String codCliente, String telefone, String bairro, String logradouro, String cidade, String uf,
 			String cep, String numero) {
@@ -20,6 +21,7 @@ public class ClienteModel {
 		this.uf = uf;
 		this.cep = cep;
 		this.numero = numero;
+		this.ativo = true;
 	}
 
 	public String getcodCliente() {
@@ -84,6 +86,14 @@ public class ClienteModel {
 
 	public void setNumero(String numero) {
 		this.numero = numero;
+	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 
 	public static void main(String[] args) {

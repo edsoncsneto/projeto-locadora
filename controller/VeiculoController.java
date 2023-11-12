@@ -15,21 +15,18 @@ public class VeiculoController implements IController{
 		if(obj instanceof VeiculoModel) {
 			veiculos.add((VeiculoModel) obj);
 		}
-		
 	}
-
-
 
 	@Override
 	public void editar(Object obj) {
+		Scanner sc = new Scanner(System.in);
 		if(obj instanceof VeiculoModel) {
-			Scanner sc = new Scanner(System.in);
 			System.out.println("[1] Placa \n"+
 			"[2] Cor \n" +
 			"[3] Marca \n" +
 			"[4] Categoria \n" +
 			"[5] Modelo \n" +
-			"Digite a op��o");
+			"Digite a op��o");
 			
 			String opcao = sc.nextLine();
 
@@ -62,7 +59,7 @@ public class VeiculoController implements IController{
             }
             imprimirUm(((VeiculoModel) obj).getPlaca());
 		}
-		
+		sc.close();
 	}
 
 
@@ -75,17 +72,25 @@ public class VeiculoController implements IController{
 			System.out.println(veic.getMarca());
 			System.out.println(veic.getCor());
 			System.out.println(veic.getSeguro());
+			//TODO esse sysout retorna o endereço do objeto. Decidir qual atributo do seguro iremos mostrar
+			System.out.println(veic.getManutencao());
+			//TODO esse sysout retorna o endereço do objeto. Decidir qual atributo da manuteção iremos mostrar
+			if(veic.isAtivo()){
+				System.out.println("Status: ativo");
+			}else{
+				System.out.println("Status: inativo");
+			}
 			System.out.println("-------");
 		}
-		
 	}
 
 
 
 	@Override
 	public void remover(Object obj) {
-		// TODO Auto-generated method stub
-		
+		if(obj instanceof VeiculoModel){
+			((VeiculoModel) obj).setAtivo(false);
+		}
 	}
 
 	@Override
@@ -98,8 +103,12 @@ public class VeiculoController implements IController{
 				System.out.println(veic.getCor());
 				System.out.println(veic.getSeguro());
 				System.out.println("-------");
+				if(veic.isAtivo()){
+					System.out.println("Status: ativo");
+				}else{
+					System.out.println("Status: inativo");
+				}
 			}
 		}
 	}
-
 }

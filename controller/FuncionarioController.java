@@ -9,8 +9,7 @@ import model.LocacaoModel;
 
 public class FuncionarioController implements IController{
 	List<FuncionarioModel> funcionarios = new ArrayList<>();
-	
-	//Método apenas para ilustrar. Necessita de mais verificações
+
 	@Override
 	public void criar(Object obj) {
 		if(obj instanceof FuncionarioModel) {
@@ -20,8 +19,8 @@ public class FuncionarioController implements IController{
 
 	@Override
 	public void editar(Object obj) {
+		Scanner sc = new Scanner(System.in);
 		if(obj instanceof FuncionarioModel) {
-			Scanner sc = new Scanner(System.in);
 			System.out.println("[1] Matricula \n"+
 			"[2] Nome \n" +
 			"[3] CPF \n" +
@@ -68,6 +67,7 @@ public class FuncionarioController implements IController{
             }
             imprimirUm(((FuncionarioModel) obj).getMatricula());
 		}
+		sc.close();
 	}
 
 	@Override
@@ -81,6 +81,11 @@ public class FuncionarioController implements IController{
 			if(func.getSupervisor() != null){
 				System.out.println(func.getSupervisor().getNome());
 			}
+			if(func.isAtivo()){
+				System.out.println("Status: ativo");
+			}else{
+				System.out.println("Status: inativo");
+			}
 			System.out.println("-------");
 		}
 	}
@@ -88,25 +93,9 @@ public class FuncionarioController implements IController{
 	@Override
 	public void remover(Object obj) {
 		if (obj instanceof FuncionarioModel){
-            boolean supervisiona = false;
-            for(FuncionarioModel func:funcionarios){
-                if(func.getSupervisor() == obj){
-                    System.out.println("Não é possível fazer remoção desse funcionário, pois supervisiona o funcionário de matrícula " + func.getMatricula());
-                    supervisiona = true;
-                }
-            }
-            if(! supervisiona) {
-                for (FuncionarioModel func : funcionarios) {
-                    if (func.getQuantidadeLocacoes() != 0) {
-                        System.out.println("Não é possível remover. Há registro desse funcinário em locações.");
-                    } else {
-                        funcionarios.remove(obj);
-						break;
-                    }
-                }
+            ((FuncionarioModel) obj).setAtivo(false);
             }
 		}
-	}
 
 	@Override
 	public void imprimirUm(String matricula) {
@@ -120,9 +109,13 @@ public class FuncionarioController implements IController{
 				if(func.getSupervisor() != null){
 					System.out.println(func.getSupervisor().getNome());
 				}
+				if(func.isAtivo()){
+					System.out.println("Status: ativo");
+				}else{
+					System.out.println("Status: inativo");
+				}
 				System.out.println("-------");
 			}
 		}
 	}
-
 }

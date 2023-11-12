@@ -7,6 +7,7 @@ public class FuncionarioModel {
 	private double salario;
 	private int quantidadeLocacoes;
 	private FuncionarioModel supervisor;
+	private boolean ativo;
 
 	public FuncionarioModel(String matricula, String nome, String cpf, double salario, FuncionarioModel supervisor) {
 		this.matricula = matricula;
@@ -14,6 +15,7 @@ public class FuncionarioModel {
 		this.cpf = cpf;
 		this.salario = salario;
 		this.supervisor = supervisor;
+		this.ativo = true;
 	}
 	
 	public FuncionarioModel(String matricula, String nome, String cpf, double salario) {
@@ -21,6 +23,7 @@ public class FuncionarioModel {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.salario = salario;
+		this.ativo = true;
 	}
 	
 	public String getMatricula() {
@@ -69,6 +72,14 @@ public class FuncionarioModel {
 
 	public void setSupervisor(FuncionarioModel supervisor) {
 		this.supervisor = supervisor;
+	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 
 	public static void main(String[] args) {
