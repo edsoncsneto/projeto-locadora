@@ -11,6 +11,10 @@ public class SeguroModel {
 	private String historicoSinistro;
 	private String franquia;
 	private boolean ativo;
+	private VeiculoModel veiculo;
+
+	public SeguroModel(){
+	}
 
 	public SeguroModel(String apolice, double valor, Date dataInicio, Date dataFim, String tipoCobertura,
 			String historicoSinistro, String franquia) {
@@ -87,6 +91,14 @@ public class SeguroModel {
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	public VeiculoModel getVeiculo() {
+		return veiculo;
+	}
+
+	public void setVeiculo(VeiculoModel veiculo) {
+		this.veiculo = veiculo;
 	}
 
 	public static void main(String[] args) {

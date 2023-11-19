@@ -62,34 +62,20 @@ public class VeiculoController implements IController{
 		sc.close();
 	}
 
-
-
 	@Override
 	public void imprimir() {
 		for(VeiculoModel veic : veiculos) {
-			System.out.println(veic.getPlaca());
-			System.out.println(veic.getModelo());
-			System.out.println(veic.getMarca());
-			System.out.println(veic.getCor());
-			System.out.println(veic.getSeguro());
-			//TODO esse sysout retorna o endereço do objeto. Decidir qual atributo do seguro iremos mostrar
-			System.out.println(veic.getManutencao());
-			//TODO esse sysout retorna o endereço do objeto. Decidir qual atributo da manuteção iremos mostrar
-			if(veic.isAtivo()){
-				System.out.println("Status: ativo");
-			}else{
-				System.out.println("Status: inativo");
-			}
-			System.out.println("-------");
+			imprimirUm(veic.getPlaca());
 		}
 	}
-
-
 
 	@Override
 	public void remover(Object obj) {
 		if(obj instanceof VeiculoModel){
 			((VeiculoModel) obj).setAtivo(false);
+			((VeiculoModel) obj).getManutencao().setAtivo(false);
+			((VeiculoModel) obj).getSeguro().setAtivo(false);
+			//inativando a manutenção e o seguro desse veículo
 		}
 	}
 
@@ -97,17 +83,28 @@ public class VeiculoController implements IController{
 	public void imprimirUm(String placa) {
 		for(VeiculoModel veic : veiculos) {
 			if(placa.equals(veic.getPlaca())) {
-				System.out.println(veic.getPlaca());
-				System.out.println(veic.getModelo());
-				System.out.println(veic.getMarca());
-				System.out.println(veic.getCor());
-				System.out.println(veic.getSeguro());
-				System.out.println("-------");
+				System.out.println("Placa: "+veic.getPlaca());
+				System.out.println("Modelo: "+veic.getModelo());
+				System.out.println("Marca: "+veic.getMarca());
+				System.out.println("Cor: "+veic.getCor());
+				if(veic.getManutencao()==null){
+					System.out.println("Manutenção nula");
+				}else{
+					System.out.println("Ordem de serviço da manutenção: " + veic.getManutencao().getOrdemServico());
+				}
+
+				if(veic.getSeguro()==null){
+					System.out.println("Seguro nulo");
+				}else{
+					System.out.println("Apólice do veículo: " + veic.getSeguro().getApolice());
+				}
+
 				if(veic.isAtivo()){
 					System.out.println("Status: ativo");
 				}else{
 					System.out.println("Status: inativo");
 				}
+				System.out.println("---------------");
 			}
 		}
 	}

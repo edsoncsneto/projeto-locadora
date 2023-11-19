@@ -7,6 +7,7 @@ public class ManutencaoModel {
 	private Date data;
 	private String tipoManutencao;
 	private boolean ativo;
+	private VeiculoModel veiculo;
 	
 	public ManutencaoModel(String ordemServico, Date data, String tipoManutencao) {
 		this.ordemServico = ordemServico;
@@ -45,6 +46,14 @@ public class ManutencaoModel {
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	public VeiculoModel getVeiculo() {
+		return veiculo;
+	}
+
+	public void setVeiculo(VeiculoModel veiculo) {
+		this.veiculo = veiculo;
 	}
 
 	public static void main(String[] args) {

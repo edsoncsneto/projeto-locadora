@@ -22,6 +22,8 @@ public class VeiculoModel {
 		this.seguro = seguro;
 		this.manutencao = manutencao;
 		this.ativo = true;
+		this.manutencao.setVeiculo(this);
+		this.seguro.setVeiculo(this);
 	}
 
 	public String getPlaca() {

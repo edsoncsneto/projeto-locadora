@@ -21,6 +21,7 @@ public class LocacaoModel {
 		this.dataFim = dataFim;
 		this.veiculos = veiculos;
 		this.funcionario = funcionario;
+		this.funcionario.setQuantidadeLocacoes(funcionario.getQuantidadeLocacoes()+1);
 		this.ativo = true;
 	}
 
@@ -33,6 +34,7 @@ public class LocacaoModel {
 		this.dataFim = dataFim;
 		this.veiculos = veiculos;
 		this.funcionario = funcionario;
+		this.funcionario.setQuantidadeLocacoes(funcionario.getQuantidadeLocacoes()+1);
 		this.ativo = true;
 	}
 

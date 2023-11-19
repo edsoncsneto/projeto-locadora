@@ -73,20 +73,7 @@ public class FuncionarioController implements IController{
 	@Override
 	public void imprimir() {
 		for(FuncionarioModel func : funcionarios) {
-			System.out.println(func.getMatricula());
-			System.out.println(func.getCpf());
-			System.out.println(func.getNome());
-			System.out.println(func.getQuantidadeLocacoes());
-			System.out.println(func.getSalario());
-			if(func.getSupervisor() != null){
-				System.out.println(func.getSupervisor().getNome());
-			}
-			if(func.isAtivo()){
-				System.out.println("Status: ativo");
-			}else{
-				System.out.println("Status: inativo");
-			}
-			System.out.println("-------");
+			imprimirUm(func.getMatricula());
 		}
 	}
 
@@ -101,20 +88,20 @@ public class FuncionarioController implements IController{
 	public void imprimirUm(String matricula) {
 		for(FuncionarioModel func:funcionarios){
 			if(func.getMatricula().equals(matricula)){
-				System.out.println(func.getMatricula());
-				System.out.println(func.getCpf());
-				System.out.println(func.getNome());
-				System.out.println(func.getQuantidadeLocacoes());
-				System.out.println(func.getSalario());
+				System.out.println("Matrícula: "+func.getMatricula());
+				System.out.println("CPF: "+func.getCpf());
+				System.out.println("Nome: "+func.getNome());
+				System.out.println("Quantidade de locações: "+func.getQuantidadeLocacoes());
+				System.out.println("Salário: "+func.getSalario());
 				if(func.getSupervisor() != null){
-					System.out.println(func.getSupervisor().getNome());
+					System.out.println("Supervisor: "+func.getSupervisor().getNome());
 				}
 				if(func.isAtivo()){
 					System.out.println("Status: ativo");
 				}else{
 					System.out.println("Status: inativo");
 				}
-				System.out.println("-------");
+				System.out.println("----------------");
 			}
 		}
 	}
