@@ -1,12 +1,17 @@
 package controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 import model.SeguroModel;
 
 public class SeguroController implements IController{
+
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	List<SeguroModel> seguros = new ArrayList<>();
 
 	@Override
@@ -15,57 +20,64 @@ public class SeguroController implements IController{
 	}
 
 	@Override
-	public void editar(Object obj) {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("[1] Apólice");
-		System.out.println("[2] Valor");
-		System.out.println("[3] Data início");
-		System.out.println("[4] Data fim");
-		System.out.println("[5] Tipo cobertura");
-		System.out.println("[6] Histórico sinistro");
-		System.out.println("[7] Franquia");
-		System.out.print("Digite a opção: ");
+	public void editar(String id) throws ParseException {
+		for(SeguroModel seguro:seguros){
+			if(seguro.getApolice().equals(id)){
+				Scanner sc = new Scanner(System.in);
+				System.out.println("[1] Apólice");
+				System.out.println("[2] Valor");
+				System.out.println("[3] Data início");
+				System.out.println("[4] Data fim");
+				System.out.println("[5] Tipo cobertura");
+				System.out.println("[6] Histórico sinistro");
+				System.out.println("[7] Franquia");
+				System.out.print("Digite a opção: ");
 
-		String opcao = sc.nextLine();
+				String opcao = sc.nextLine();
 
-		switch (opcao){
-			case "1":
-				System.out.print("Digite a nova apólice: ");
-				String novaApolice = sc.nextLine();
-				((SeguroModel) obj).setApolice(novaApolice);
-				break;
-			case "2":
-				System.out.print("Digite o novo valor: ");
-				double novoValor = sc.nextDouble();
-				((SeguroModel) obj).setValor(novoValor);
-				break;
-			case "3":
-				System.out.print("Digite a nova data de início: ");
-				String novaDI = sc.nextLine(); //convertar String para Date
-				//((SeguroModel) obj).setdataInicio(novaDI);
-				break;
-			case "4":
-				System.out.print("Digite a nova data fim: ");
-				String novaDF = sc.nextLine(); //converter String para Date
-				//((SeguroModel) obj).getdataFim(novaDF);
-				break;
-			case "5":
-				System.out.print("Digite o novo tipo de cobertura: ");
-				String novoTC = sc.nextLine();
-				((SeguroModel) obj).settipoCobertura(novoTC);
-				break;
-			case "6":
-				System.out.print("Digite o novo histórico sinistro: ");
-				String novoHS = sc.nextLine();
-				((SeguroModel) obj).sethistoricoSinistro(novoHS);
-				break;
-			case "7":
-				System.out.println("Digite a nova franquia: ");
-				String novaFranquia = sc.nextLine();
-				((SeguroModel) obj).setFranquia(novaFranquia);
-				break;
+				switch (opcao){
+					case "1":
+						System.out.print("Digite a nova apólice: ");
+						String novaApolice = sc.nextLine();
+						seguro.setApolice(novaApolice);
+						break;
+					case "2":
+						System.out.print("Digite o novo valor: ");
+						double novoValor = sc.nextDouble();
+						seguro.setValor(novoValor);
+						break;
+					case "3":
+						System.out.print("Digite a nova data de início: ");
+						String novaDIString = sc.nextLine();
+						Date novaDI = sdf.parse(novaDIString);
+						seguro.setdataInicio(novaDI);
+						break;
+					case "4":
+						System.out.print("Digite a nova data fim: ");
+						String novaDFString = sc.nextLine();
+						Date novaDF = sdf.parse(novaDFString);
+						seguro.setdataFim(novaDF);
+						break;
+					case "5":
+						System.out.print("Digite o novo tipo de cobertura: ");
+						String novoTC = sc.nextLine();
+						seguro.settipoCobertura(novoTC);
+						break;
+					case "6":
+						System.out.print("Digite o novo histórico sinistro: ");
+						String novoHS = sc.nextLine();
+						seguro.sethistoricoSinistro(novoHS);
+						break;
+					case "7":
+						System.out.println("Digite a nova franquia: ");
+						String novaFranquia = sc.nextLine();
+						seguro.setFranquia(novaFranquia);
+						break;
+				}
+				imprimirUm(seguro.getApolice());
+				sc.close();
+			}
 		}
-		
 	}
 
 	@Override
@@ -76,12 +88,16 @@ public class SeguroController implements IController{
 	}
 
 	@Override
-	public void remover(Object obj) {
-		if(!((SeguroModel) obj).isAtivo()){
-			System.out.println("Esse já não é um seguro ativo!");
-		}else{
-			((SeguroModel) obj).getVeiculo().setSeguro(null);
-			((SeguroModel) obj).setAtivo(false);
+	public void remover(String id) {
+		for(SeguroModel seguro:seguros){
+			if (seguro.getApolice().equals(id)){
+				if(!seguro.isAtivo()){
+					System.out.println("Esse já não é um seguro ativo!");
+				}else{
+					seguro.getVeiculo().setSeguro(null);
+					seguro.setAtivo(false);
+				}
+			}
 		}
 	}
 
@@ -94,7 +110,7 @@ public class SeguroController implements IController{
 				System.out.println("Tipo de cobertura: "+seg.gettipoCobertura());
 				System.out.println("Valor: "+seg.getValor());
 				System.out.println("Data início: "+seg.getdataInicio());
-				System.out.println("Data fim: "+seg.getdataFim());
+				System.out.println("Data fim: "+sdf.format(seg.getdataFim()));
 				System.out.println("Histórico sinsitro: "+seg.gethistoricoSinistro());
 				if(seg.isAtivo()){
 					System.out.println("Status: ativo");

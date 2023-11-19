@@ -4,19 +4,17 @@ import java.util.Date;
 
 public class LocacaoModel {
 	private String cod_locacao;
-	private ClientePFModel clientePF;
-	private ClientePJModel clientePJ;
+	private ClienteModel cliente;
 	private Date dataInicio;
 	private Date dataFim;
 	private VeiculoModel[] veiculos;
 	private FuncionarioModel funcionario;
 	private boolean ativo;
 
-	// construtor para cliente pf
-	public LocacaoModel(String cod_locacao, ClientePFModel clientePF, Date dataInicio, Date dataFim, VeiculoModel[] veiculos,
+	public LocacaoModel(String cod_locacao, ClienteModel cliente, Date dataInicio, Date dataFim, VeiculoModel[] veiculos,
 			FuncionarioModel funcionario) {
 		this.cod_locacao = cod_locacao;
-		this.clientePF = clientePF;
+		this.cliente = cliente;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
 		this.veiculos = veiculos;
@@ -25,33 +23,12 @@ public class LocacaoModel {
 		this.ativo = true;
 	}
 
-	// construtor para cliente pj
-	public LocacaoModel(String cod_locacao, ClientePJModel clientePJ, Date dataInicio, Date dataFim, VeiculoModel[] veiculos,
-			FuncionarioModel funcionario) {
-		this.cod_locacao = cod_locacao;
-		this.clientePJ = clientePJ;
-		this.dataInicio = dataInicio;
-		this.dataFim = dataFim;
-		this.veiculos = veiculos;
-		this.funcionario = funcionario;
-		this.funcionario.setQuantidadeLocacoes(funcionario.getQuantidadeLocacoes()+1);
-		this.ativo = true;
+	public ClienteModel getCliente() {
+		return cliente;
 	}
 
-	public ClientePFModel getClientePF() {
-		return clientePF;
-	}
-
-	public void setClientePF(ClientePFModel clientePF) {
-		this.clientePF = clientePF;
-	}
-
-	public ClientePJModel getClientePJ() {
-		return clientePJ;
-	}
-
-	public void setClientePJ(ClientePJModel clientePJ) {
-		this.clientePJ = clientePJ;
+	public void setCliente(ClienteModel cliente) {
+		this.cliente = cliente;
 	}
 
 	public Date getDataInicio() {
@@ -100,11 +77,6 @@ public class LocacaoModel {
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
-	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

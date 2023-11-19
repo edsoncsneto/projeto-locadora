@@ -1,6 +1,6 @@
 package model;
 
-public class ClienteModel {
+public abstract class ClienteModel {
 	protected String codCliente;
 	protected String telefone;
 	protected String bairro;
@@ -94,11 +94,6 @@ public class ClienteModel {
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
-	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

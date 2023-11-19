@@ -47,11 +47,4 @@ public class ClientePFModel extends ClienteModel {
 		this.cnh = cnh;
 	}
 
-
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

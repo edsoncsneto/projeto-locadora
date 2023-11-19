@@ -30,71 +30,57 @@ public class VeiculoModel {
 		return placa;
 	}
 
-
 	public void setPlaca(String placa) {
 		this.placa = placa;
 	}
-
 
 	public String getCor() {
 		return cor;
 	}
 
-
 	public void setCor(String cor) {
 		this.cor = cor;
 	}
-
 
 	public String getMarca() {
 		return marca;
 	}
 
-
 	public void setMarca(String marca) {
 		this.marca = marca;
 	}
-
 
 	public String getCategoria() {
 		return categoria;
 	}
 
-
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
-
 
 	public String getChassi() {
 		return chassi;
 	}
 
-
 	public void setChassi(String chassi) {
 		this.chassi = chassi;
 	}
-
 
 	public String getModelo() {
 		return modelo;
 	}
 
-
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
-
 
 	public SeguroModel getSeguro() {
 		return seguro;
 	}
 
-
 	public void setSeguro(SeguroModel seguro) {
 		this.seguro = seguro;
 	}
-
 
 	public ManutencaoModel getManutencao() {
 		return manutencao;
@@ -111,11 +97,6 @@ public class VeiculoModel {
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
-	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 
 }
