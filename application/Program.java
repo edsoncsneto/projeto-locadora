@@ -6,51 +6,121 @@ import model.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+
 public class Program {
 
+	public static void menuPrincipal() {
+		System.out.println("Escolha uma opção: ");
+		System.out.println("1 - Cadastrar Funcionário ");
+		System.out.println("2 - Cadastrar Cliente ");
+		System.out.println("3 - Cadastrar Seguro ");
+		System.out.println("4 - Cadastrar Manutenção ");
+		System.out.println("5 - Cadastrar Veículo ");
+		System.out.println("6 - Realizar locação ");
+		System.out.println("7 - Mais opções...");
+		System.out.println("0 - SAIR");
+	}
+	public static void menuAlternativo(){
+		System.out.println("Escolha uma opção: ");
+		System.out.println("8 - Editar Funcionários ");
+		System.out.println("9 - Editar Clientes ");
+		System.out.println("10 - Editar Veículos ");
+		System.out.println("11 - Editar Seguros ");
+		System.out.println("12 - Editar Manutenções ");
+		System.out.println("0 - SAIR");
+	}
 	public static void main(String[] args) {
 
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		//para criar um objeto Seguro precisamos receber a dataFim em String e converter para tipo Date
+		menuPrincipal();
+		int opcP = sc.nextInt();
+		FuncionarioModel funcionarioModel = null;
+		FuncionarioModel supervisorModel = null;
+		while(opcP!=0){
+			switch (opcP){
+				case 1:
+					System.out.println("Digite o nome do funcionário: ");
+					String nomeFuncionario = sc.nextLine();
+					System.out.println("Digite a matrícula do funcionário: ");
+					String matriculaFuncionario = sc.nextLine();
+					System.out.println("Digite o CPF do funcionário: ");
+					String cpfFuncionario = sc.nextLine();
+					System.out.println("Digite o salário do funcionário: ");
+					double salarioFuncionario = sc.nextDouble();
+					System.out.println("O funcionário possui supervisor? S/N");
+					String validaSupervisor = sc.nextLine().toUppercase();
+					if(validaSupervisor.equals("S")){
+						System.out.println("Forneça os dados do Funcionário Supervisor: ");
+						System.out.println("Digite o nome do supervisor: ");
+						String nomeSupervisor = sc.nextLine();
+						System.out.println("Digite a matrícula do supervisor: ");
+						String matriculaSupervisor = sc.nextLine();
+						System.out.println("Digite o CPF do supervisor: ");
+						String cpfSupervisor = sc.nextLine();
+						supervisorModel = new FuncionarioModel(matriculaSupervisor, nomeSupervisor, cpfSupervisor);
+						funcionarioModel = new FuncionarioModel(matriculaFuncionario, nomeFuncionario, cpfFuncionario, salarioFuncionario,supervisorModel);
+					} else if (validaSupervisor.equals("N")) {
+						funcionarioModel = new FuncionarioModel(matriculaFuncionario,nomeFuncionario, cpfFuncionario,salarioFuncionario);
+					}
+					menuPrincipal();
+					opcP = sc.nextInt();
+					break;
+				case 2:
+					System.out.println("O Cliente será pessoa física ou jurídica? PF/PJ");
+					String validaTipoCliente = sc.nextLine().toUppercase();
+					if(validaTipoCliente.equals("PF")){
+						System.out.println("Digite o nome do Cliente: ");
+						String nomeCliente = sc.nextLine();
+						System.out.println("Digite o CPF do Cliente: ");
+						String cpfCliente = sc.nextLine();
+						System.out.println("Digite a CNH do Cliente: ");
+						String cnhCliente = sc.nextLine();
+					}
+			}
+		}
 
-		//Instâncias dos controllers
-		var clienteController = new ClienteController();
-		var funcionarioController = new FuncionarioController();
-		var manutencaoController = new ManutencaoController();
-		var seguroController = new SeguroController();
-		var veiculoController = new VeiculoController();
 
-		var cliente1 = new ClientePFModel("1", "999999999", "Novo", "Nova",
-				"Garanhuns", "PE", "56800000", "00", "Edson", "00000000000",
-				"CNH");
 
-		var cliente2 = new ClientePJModel("2", "888888888", "bairro", "logradouro",
-				"cidade", "uf", "cep", "numero", "cnpj", "razao social");
-
-		clienteController.criar(cliente1);
-		clienteController.criar(cliente2);
-
-		var funcionario = new FuncionarioModel("matricula", "nome", "cpf", 2000);
-
-		funcionarioController.criar(funcionario);
-
-		var manutencao = new ManutencaoModel("ordem serv", new Date(), "tipo");
-
-		manutencaoController.criar(manutencao);
-
-		var seguro = new SeguroModel("apolice", 700, new Date(), new Date(), "tipo", "historico",
-				"franquia");
-
-		seguroController.criar(seguro);
-
-		var veiculo = new VeiculoModel("placa", "cor", "marca", "categoria", "chassi",
-				"modelo", seguro, manutencao);
-
-		veiculoController.criar(veiculo);
-
-		funcionarioController.imprimir();
-		funcionarioController.editar("matricula");
-		funcionarioController.imprimirUm("matricula");
+//		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//		//para criar um objeto Seguro precisamos receber a dataFim em String e converter para tipo Date
+//
+//		//Instâncias dos controllers
+//		var clienteController = new ClienteController();
+//		var funcionarioController = new FuncionarioController();
+//		var manutencaoController = new ManutencaoController();
+//		var seguroController = new SeguroController();
+//		var veiculoController = new VeiculoController();
+//
+//		var cliente1 = new ClientePFModel("1", "999999999", "Novo", "Nova",
+//				"Garanhuns", "PE", "56800000", "00", "Edson", "00000000000",
+//				"CNH");
+//
+//		var cliente2 = new ClientePJModel("2", "888888888", "bairro", "logradouro",
+//				"cidade", "uf", "cep", "numero", "cnpj", "razao social");
+//
+//		clienteController.criar(cliente1);
+//		clienteController.criar(cliente2);
+//
+//		var funcionario = new FuncionarioModel("matricula", "nome", "cpf", 2000);
+//
+//		funcionarioController.criar(funcionario);
+//
+//		var manutencao = new ManutencaoModel("ordem serv", new Date(), "tipo");
+//
+//		manutencaoController.criar(manutencao);
+//
+//		var seguro = new SeguroModel("apolice", 700, new Date(), new Date(), "tipo", "historico",
+//				"franquia");
+//
+//		seguroController.criar(seguro);
+//
+//		var veiculo = new VeiculoModel("placa", "cor", "marca", "categoria", "chassi",
+//				"modelo", seguro, manutencao);
+//
+//		veiculoController.criar(veiculo);
+//
+//		funcionarioController.imprimir();
+//		funcionarioController.editar("matricula");
+//		funcionarioController.imprimirUm("matricula");
 	}
-
 }

@@ -25,7 +25,14 @@ public class FuncionarioModel {
 		this.salario = salario;
 		this.ativo = true;
 	}
-	
+	//Para cadastrar um supervisor eu não acho necessário fornecer o salário
+	public FuncionarioModel(String matricula, String nome, String cpf) {
+		this.matricula = matricula;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.ativo = true;
+	}
+
 	public String getMatricula() {
 		return matricula;
 	}
