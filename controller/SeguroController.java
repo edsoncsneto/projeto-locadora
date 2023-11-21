@@ -13,7 +13,7 @@ import model.SeguroModel;
 
 public class SeguroController implements IController{
 
-	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	DateTimeFormatter formataData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	List<SeguroModel> seguros = new ArrayList<>();
 
 	@Override
@@ -23,8 +23,6 @@ public class SeguroController implements IController{
 
 	@Override
 	public void editar(String id) throws ParseException {
-		DateTimeFormatter formataData = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
 		for(SeguroModel seguro:seguros){
 			if(seguro.getApolice().equals(id)){
 				Scanner sc = new Scanner(System.in);
@@ -116,7 +114,7 @@ public class SeguroController implements IController{
 				System.out.println("Tipo de cobertura: "+seg.gettipoCobertura());
 				System.out.println("Valor: "+seg.getValor());
 				System.out.println("Data início: "+seg.getdataInicio());
-				System.out.println("Data fim: "+sdf.format(seg.getdataFim()));
+				System.out.println("Data fim: "+seg.getdataFim());
 				System.out.println("Histórico sinsitro: "+seg.gethistoricoSinistro());
 				if(seg.isAtivo()){
 					System.out.println("Status: ativo");

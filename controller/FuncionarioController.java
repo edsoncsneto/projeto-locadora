@@ -91,6 +91,7 @@ public class FuncionarioController implements IController {
     public void imprimirUm(String matricula) {
         for (FuncionarioModel func : funcionarios) {
             if (func.getMatricula().equals(matricula)) {
+                System.out.println("-----------------------------");
                 System.out.println("Matrícula: " + func.getMatricula());
                 System.out.println("CPF: " + func.getCpf());
                 System.out.println("Nome: " + func.getNome());
@@ -104,7 +105,7 @@ public class FuncionarioController implements IController {
                 } else {
                     System.out.println("Status: inativo");
                 }
-                System.out.println("----------------");
+                System.out.println("-----------------------------");
             }
         }
     }

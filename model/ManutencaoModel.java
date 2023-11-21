@@ -1,15 +1,16 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class ManutencaoModel {
 	private String ordemServico;
-	private Date data;
+	private LocalDate data;
 	private String tipoManutencao;
 	private boolean ativo;
 	private VeiculoModel veiculo;
 	
-	public ManutencaoModel(String ordemServico, Date data, String tipoManutencao) {
+	public ManutencaoModel(String ordemServico, LocalDate data, String tipoManutencao) {
 		this.ordemServico = ordemServico;
 		this.data = data;
 		this.tipoManutencao = tipoManutencao;
@@ -24,11 +25,11 @@ public class ManutencaoModel {
 		this.ordemServico = ordemServico;
 	}
 
-	public Date getData() {
+	public LocalDate getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 

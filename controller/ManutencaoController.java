@@ -2,6 +2,8 @@ package controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +15,7 @@ import model.VeiculoModel;
 import javax.management.modelmbean.ModelMBeanConstructorInfo;
 
 public class ManutencaoController implements IController{
-	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	DateTimeFormatter formataData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	List<ManutencaoModel> manutencoes = new ArrayList<>();
 	
 	@Override
@@ -42,7 +44,7 @@ public class ManutencaoController implements IController{
 					case "2":
 						System.out.print("Digite a nova data: ");
 						String novaDataString = sc.nextLine();
-						Date novaData = sdf.parse(novaDataString);
+						LocalDate novaData = LocalDate.parse(novaDataString, formataData);
 						manutencao.setData(novaData);
 						break;
 					case "3":
@@ -84,7 +86,7 @@ public class ManutencaoController implements IController{
 			if(ordemServico.equals(manutencao.getOrdemServico())){
 				System.out.println("Ordem de serviço: "+manutencao.getOrdemServico());
 				System.out.println("Tipo da manutenção: "+manutencao.getTipoManutencao());
-				System.out.println("Data:" + sdf.format(manutencao.getData()));
+				System.out.println("Data:" + manutencao.getData());
 				if(manutencao.isAtivo()){
 					System.out.println("Status: ativa");
 				}else{

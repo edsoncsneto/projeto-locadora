@@ -39,13 +39,17 @@ public class Program {
 	public static void main(String[] args) {
 		FuncionarioModel funcionarioModel = null;
 		FuncionarioModel supervisorModel = null;
-		FuncionarioController funcionarioController = new FuncionarioController();
 		ClienteModel ClientePF = null;
 		ClienteModel ClientePJ = null;
-		ClienteController clienteController = null;
 		SeguroModel seguroModel = null;
-		SeguroController seguroController = null;
+		ManutencaoModel manutencaoModel = null;
 
+		ClienteController clienteController = new ClienteController();
+		FuncionarioController funcionarioController = new FuncionarioController();
+		SeguroController seguroController = new SeguroController();
+		ManutencaoController manutencaoController = new ManutencaoController();
+
+		DateTimeFormatter formataData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		Scanner sc = new Scanner(System.in);
 		int opcP = -1;
 
@@ -79,75 +83,81 @@ public class Program {
 						funcionarioModel = new FuncionarioModel(matriculaFuncionario, nomeFuncionario, cpfFuncionario, salarioFuncionario, supervisorModel);
                         assert false;
                         funcionarioController.criar(funcionarioModel);
+
+						//TESTE
+						funcionarioController.imprimir();
 						break;
 					} else if (validaSupervisor.equals("N")) {
 						funcionarioModel = new FuncionarioModel(matriculaFuncionario,nomeFuncionario, cpfFuncionario,salarioFuncionario);
                         assert false;
                         funcionarioController.criar(funcionarioModel);
+
+						//TESTE
+						funcionarioController.imprimir();
 						break;
 					}
-					funcionarioController.imprimir();
-					break;
 				case 2:
 					System.out.println("Digite o código do Cliente: ");
-					String codCliente = sc.nextLine();
+					String codCliente = sc.next();
 					System.out.println("Digite o telefone do Cliente: ");
-					String telefoneCliente = sc.nextLine();
+					String telefoneCliente = sc.next();
 					System.out.println("Digite o logradouro do Cliente: ");
-					String logradouroCliente = sc.nextLine();
+					String logradouroCliente = sc.next();
 					System.out.println("Digite o bairro do Cliente: ");
-					String bairroCliente = sc.nextLine();
+					String bairroCliente = sc.next();
 					System.out.println("Digite a cidade do Cliente: ");
-					String cidadeCliente = sc.nextLine();
+					String cidadeCliente = sc.next();
 					System.out.println("Digite o UF do Cliente: ");
-					String ufCliente = sc.nextLine();
+					String ufCliente = sc.next();
 					System.out.println("Digite o CEP do Cliente: ");
-					String cepCliente = sc.nextLine();
+					String cepCliente = sc.next();
 					System.out.println("Digite o número da casa do Cliente: ");
-					String numeroCliente = sc.nextLine();
+					String numeroCliente = sc.next();
 					System.out.println("O Cliente será pessoa física ou jurídica? PF/PJ");
-					String validaTipoCliente = sc.nextLine().toUpperCase();
+					String validaTipoCliente = sc.next().toUpperCase();
+
 					if(validaTipoCliente.equals("PF")){
 						System.out.println("Digite o nome do Cliente: ");
-						String nomeCliente = sc.nextLine();
+						String nomeCliente = sc.next();
 						System.out.println("Digite o CPF do Cliente: ");
-						String cpfCliente = sc.nextLine();
+						String cpfCliente = sc.next();
 						System.out.println("Digite a CNH do Cliente: ");
-						String cnhCliente = sc.nextLine();
-						ClientePF = new ClientePFModel(codCliente, telefoneCliente,bairroCliente,logradouroCliente,cidadeCliente,ufCliente,cepCliente,numeroCliente,nomeCliente,cpfCliente,cnhCliente);
+						String cnhCliente = sc.next();
+
+						ClientePF = new ClientePFModel(codCliente, telefoneCliente, bairroCliente, logradouroCliente, cidadeCliente, ufCliente, cepCliente, numeroCliente, nomeCliente, cpfCliente, cnhCliente);
                         assert false;
                         clienteController.criar(ClientePF);
+						clienteController.imprimir();
+						break;
 					} else if (validaTipoCliente.equals("PJ")) {
 						System.out.println("Digite o CNPJ do Cliente: ");
-						String cnpjCliente = sc.nextLine();
+						String cnpjCliente = sc.next();
 						System.out.println("Digite a razão social do Cliente: ");
-						String razaoSocialCliente = sc.nextLine();
+						String razaoSocialCliente = sc.nextLine(); sc.nextLine();
 						ClientePJ = new ClientePJModel(codCliente, telefoneCliente, bairroCliente, logradouroCliente, cidadeCliente, ufCliente, cepCliente, numeroCliente, cnpjCliente, razaoSocialCliente);
 						assert false;
 						clienteController.criar(ClientePJ);
+						clienteController.imprimir();
+						break;
 					}
-					menuPrincipal();
-					opcP = sc.nextInt();
-					break;
 
 				case 3:
 					System.out.println("Digite o número da apolice do Seguro: ");
-					String apoliceSeguro = sc.nextLine();
+					String apoliceSeguro = sc.next();
 					System.out.println("Digite o valor do Seguro: ");
 					double valorSeguro = sc.nextDouble();
 					System.out.println("Digite a data de início do Seguro: ");
-					String dataInicio = sc.nextLine();
+					String dataInicio = sc.next();
 					System.out.println("Digite a data de término do Seguro: ");
-					String dataFim = sc.nextLine();
+					String dataFim = sc.next();
 					System.out.println("Qual o tipo de cobertura do Seguro? ");
-					String tipoCobertura = sc.nextLine();
+					String tipoCobertura = sc.next();
 					System.out.println("Histórico de Sinistro: ");
-					String historicoSinistro = sc.nextLine();
+					String historicoSinistro = sc.next();
 					System.out.println("Qual é a franquia? ");
-					String franquiaSeguro = sc.nextLine();
+					String franquiaSeguro = sc.next();
 
 					// Convertendo a data para LocalDate
-					DateTimeFormatter formataData = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 					LocalDate dataInicial = LocalDate.parse(dataInicio, formataData);
 					LocalDate dataFinal = LocalDate.parse(dataFim, formataData);
 
@@ -159,13 +169,22 @@ public class Program {
 					seguroModel = new SeguroModel(apoliceSeguro, valorSeguro, dataInicial, dataFinal, tipoCobertura, historicoSinistro, franquiaSeguro);
 					assert false;
 					seguroController.criar(seguroModel);
-					menuPrincipal();
-					opcP = sc.nextInt();
+					seguroController.imprimir();
 					break;
 				case 4:
+					System.out.println("Digite a ordem de serviço: ");
+					String ordemServico = sc.next();
+					System.out.println("Digite a data da manutenção: ");
+					String dataManutencao = sc.next();
+					System.out.println("Digite o tipo da manutenção: ");
+					String tipoManutencao = sc.next();
 
-					menuPrincipal();
-					opcP = sc.nextInt();
+					LocalDate dataRealizado = LocalDate.parse(dataManutencao, formataData);
+
+					manutencaoModel = new ManutencaoModel(ordemServico, dataRealizado, tipoManutencao);
+					assert false;
+					manutencaoController.criar(manutencaoModel);
+					manutencaoController.imprimir();
 					break;
 			}
 		}

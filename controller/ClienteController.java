@@ -147,6 +147,7 @@ public class ClienteController implements IController {
     @Override
     public void imprimirUm(String cod_cliente) {
         for (ClienteModel cli : clientes) {
+            System.out.println("-----------------------------");
             if (cli.getcodCliente().equals(cod_cliente)) {
                 if (cli instanceof ClientePFModel) {
                     System.out.println("Código: " + cli.getcodCliente());
@@ -182,7 +183,7 @@ public class ClienteController implements IController {
                     System.out.println("CNPJ: " + ((ClientePJModel) cli).getCnpj());
                     System.out.println("Razão social: " + ((ClientePJModel) cli).getRazaoSocial());
                 }
-                System.out.println("---------------");
+                System.out.println("-----------------------------");
             }
         }
     }
