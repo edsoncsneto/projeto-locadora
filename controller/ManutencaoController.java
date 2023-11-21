@@ -68,11 +68,11 @@ public class ManutencaoController implements IController{
 	public void remover(String id) {
 		for(ManutencaoModel manutencao:manutencoes){
 			if(manutencao.getOrdemServico().equals(id)){
-				if(!((ManutencaoModel) obj).isAtivo()){
+				if(!manutencao.isAtivo()){
 					System.out.println("Essa já não é uma manutenção ativa!");
 				}else{
-					((ManutencaoModel) obj).getVeiculo().setManutencao(null);
-					((ManutencaoModel) obj).setAtivo(false);
+					manutencao.getVeiculo().setManutencao(null);
+					manutencao.setAtivo(false);
 				}
 			}
 		}

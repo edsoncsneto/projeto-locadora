@@ -3,15 +3,15 @@ package application;
 import controller.*;
 import model.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 
 public class Program {
 
 	public static void menuPrincipal() {
-		System.out.println("Escolha uma opção: ");
+		System.out.println("MENU PRINCIPAL: ");
 		System.out.println("1 - Cadastrar Funcionário ");
 		System.out.println("2 - Cadastrar Cliente ");
 		System.out.println("3 - Cadastrar Seguro ");
@@ -20,62 +20,73 @@ public class Program {
 		System.out.println("6 - Realizar locação ");
 		System.out.println("7 - Mais opções...");
 		System.out.println("0 - SAIR");
+
+		System.out.println("");
+		System.out.println("Escolha uma das opção acima:");
 	}
 	public static void menuAlternativo(){
-		System.out.println("Escolha uma opção: ");
+		System.out.println("EDITAR DADOS: ");
 		System.out.println("8 - Editar Funcionários ");
 		System.out.println("9 - Editar Clientes ");
 		System.out.println("10 - Editar Veículos ");
 		System.out.println("11 - Editar Seguros ");
 		System.out.println("12 - Editar Manutenções ");
 		System.out.println("0 - SAIR");
+
+		System.out.println("");
+		System.out.println("Escolha uma das opção acima:");
 	}
 	public static void main(String[] args) {
-
-		menuPrincipal();
-		int opcP = sc.nextInt();
 		FuncionarioModel funcionarioModel = null;
 		FuncionarioModel supervisorModel = null;
-		FuncionarioController funcionarioController = null;
+		FuncionarioController funcionarioController = new FuncionarioController();
 		ClienteModel ClientePF = null;
 		ClienteModel ClientePJ = null;
 		ClienteController clienteController = null;
 		SeguroModel seguroModel = null;
 		SeguroController seguroController = null;
 
+		Scanner sc = new Scanner(System.in);
+		int opcP = -1;
 
-		while(opcP!=0){
+		while(opcP != 0){
+			menuPrincipal();
+			opcP = sc.nextInt();
+
 			switch (opcP){
 				case 1:
 					System.out.println("Digite o nome do funcionário: ");
-					String nomeFuncionario = sc.nextLine();
+					String nomeFuncionario = sc.next();
 					System.out.println("Digite a matrícula do funcionário: ");
-					String matriculaFuncionario = sc.nextLine();
+					String matriculaFuncionario = sc.next();
 					System.out.println("Digite o CPF do funcionário: ");
-					String cpfFuncionario = sc.nextLine();
+					String cpfFuncionario = sc.next();
 					System.out.println("Digite o salário do funcionário: ");
 					double salarioFuncionario = sc.nextDouble();
 					System.out.println("O funcionário possui supervisor? S/N");
-					String validaSupervisor = sc.nextLine().toUppercase();
+					String validaSupervisor = sc.next().toUpperCase();
+
 					if(validaSupervisor.equals("S")){
-						System.out.println("Forneça os dados do Funcionário Supervisor: ");
+						System.out.println("DADOS DO SUPERVISOR");
 						System.out.println("Digite o nome do supervisor: ");
-						String nomeSupervisor = sc.nextLine();
+						String nomeSupervisor = sc.next();
 						System.out.println("Digite a matrícula do supervisor: ");
-						String matriculaSupervisor = sc.nextLine();
+						String matriculaSupervisor = sc.next();
 						System.out.println("Digite o CPF do supervisor: ");
-						String cpfSupervisor = sc.nextLine();
+						String cpfSupervisor = sc.next();
+
 						supervisorModel = new FuncionarioModel(matriculaSupervisor, nomeSupervisor, cpfSupervisor);
-						funcionarioModel = new FuncionarioModel(matriculaFuncionario, nomeFuncionario, cpfFuncionario, salarioFuncionario,supervisorModel);
+						funcionarioModel = new FuncionarioModel(matriculaFuncionario, nomeFuncionario, cpfFuncionario, salarioFuncionario, supervisorModel);
                         assert false;
                         funcionarioController.criar(funcionarioModel);
+						break;
 					} else if (validaSupervisor.equals("N")) {
 						funcionarioModel = new FuncionarioModel(matriculaFuncionario,nomeFuncionario, cpfFuncionario,salarioFuncionario);
                         assert false;
                         funcionarioController.criar(funcionarioModel);
+						break;
 					}
-					menuPrincipal();
-					opcP = sc.nextInt();
+					funcionarioController.imprimir();
 					break;
 				case 2:
 					System.out.println("Digite o código do Cliente: ");
@@ -95,7 +106,7 @@ public class Program {
 					System.out.println("Digite o número da casa do Cliente: ");
 					String numeroCliente = sc.nextLine();
 					System.out.println("O Cliente será pessoa física ou jurídica? PF/PJ");
-					String validaTipoCliente = sc.nextLine().toUppercase();
+					String validaTipoCliente = sc.nextLine().toUpperCase();
 					if(validaTipoCliente.equals("PF")){
 						System.out.println("Digite o nome do Cliente: ");
 						String nomeCliente = sc.nextLine();
@@ -118,26 +129,34 @@ public class Program {
 					menuPrincipal();
 					opcP = sc.nextInt();
 					break;
+
 				case 3:
-					String partner = "dd-MM-yyyy";
 					System.out.println("Digite o número da apolice do Seguro: ");
 					String apoliceSeguro = sc.nextLine();
 					System.out.println("Digite o valor do Seguro: ");
 					double valorSeguro = sc.nextDouble();
 					System.out.println("Digite a data de início do Seguro: ");
 					String dataInicio = sc.nextLine();
-					SimpleDateFormat sdt = new SimpleDateFormat(partner);
-					dataInicio = sdt.format(new Date());
 					System.out.println("Digite a data de término do Seguro: ");
 					String dataFim = sc.nextLine();
-					dataFim = sdt.format(new Date());
 					System.out.println("Qual o tipo de cobertura do Seguro? ");
 					String tipoCobertura = sc.nextLine();
 					System.out.println("Histórico de Sinistro: ");
 					String historicoSinistro = sc.nextLine();
 					System.out.println("Qual é a franquia? ");
 					String franquiaSeguro = sc.nextLine();
-					seguroModel = new SeguroModel(apoliceSeguro,valorSeguro,dataInicio.,dataFim,tipoCobertura,historicoSinistro,franquiaSeguro);
+
+					// Convertendo a data para LocalDate
+					DateTimeFormatter formataData = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+					LocalDate dataInicial = LocalDate.parse(dataInicio, formataData);
+					LocalDate dataFinal = LocalDate.parse(dataFim, formataData);
+
+//					String partner = "dd-MM-yyyy";
+//					SimpleDateFormat sdt = new SimpleDateFormat(partner);
+//					dataInicio = sdt.format(new Date());
+//					dataFim = sdt.format(new Date());
+
+					seguroModel = new SeguroModel(apoliceSeguro, valorSeguro, dataInicial, dataFinal, tipoCobertura, historicoSinistro, franquiaSeguro);
 					assert false;
 					seguroController.criar(seguroModel);
 					menuPrincipal();

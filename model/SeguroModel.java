@@ -1,12 +1,13 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class SeguroModel {
 	private String apolice;
 	private double valor;
-	private Date dataInicio;
-	private Date dataFim;
+	private LocalDate dataInicio;
+	private LocalDate dataFim;
 	private String tipoCobertura;
 	private String historicoSinistro;
 	private String franquia;
@@ -16,7 +17,7 @@ public class SeguroModel {
 	public SeguroModel(){
 	}
 
-	public SeguroModel(String apolice, double valor, Date dataInicio, Date dataFim, String tipoCobertura,
+	public SeguroModel(String apolice, double valor, LocalDate dataInicio, LocalDate dataFim, String tipoCobertura,
 			String historicoSinistro, String franquia) {
 
 		this.apolice = apolice;
@@ -45,19 +46,19 @@ public class SeguroModel {
 		this.valor = valor;
 	}
 
-	public Date getdataInicio() {
+	public LocalDate getdataInicio() {
 		return dataInicio;
 	}
 
-	public void setdataInicio(Date dataInicio) {
+	public void setdataInicio(LocalDate dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public Date getdataFim() {
+	public LocalDate getdataFim() {
 		return dataFim;
 	}
 
-	public void setdataFim(Date dataFim) {
+	public void setdataFim(LocalDate dataFim) {
 		this.dataFim = dataFim;
 	}
 

@@ -2,6 +2,8 @@ package controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +23,8 @@ public class SeguroController implements IController{
 
 	@Override
 	public void editar(String id) throws ParseException {
+		DateTimeFormatter formataData = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
 		for(SeguroModel seguro:seguros){
 			if(seguro.getApolice().equals(id)){
 				Scanner sc = new Scanner(System.in);
@@ -49,13 +53,15 @@ public class SeguroController implements IController{
 					case "3":
 						System.out.print("Digite a nova data de início: ");
 						String novaDIString = sc.nextLine();
-						Date novaDI = sdf.parse(novaDIString);
+//						Date novaDI = sdf.parse(novaDIString);
+						LocalDate novaDI = LocalDate.parse(novaDIString, formataData);
 						seguro.setdataInicio(novaDI);
 						break;
 					case "4":
 						System.out.print("Digite a nova data fim: ");
 						String novaDFString = sc.nextLine();
-						Date novaDF = sdf.parse(novaDFString);
+//						Date novaDF = sdf.parse(novaDFString);
+						LocalDate novaDF = LocalDate.parse(novaDFString, formataData);
 						seguro.setdataFim(novaDF);
 						break;
 					case "5":
