@@ -26,6 +26,20 @@ public class VeiculoModel {
 		this.seguro.setVeiculo(this);
 	}
 
+	//Veiculo sem Manuntenção
+	public VeiculoModel(String placa, String cor, String marca, String categoria, String chassi, String modelo, SeguroModel seguro){
+		this.placa = placa;
+		this. cor = cor;
+		this. marca = marca;
+	    this.categoria = categoria;
+		this.chassi = chassi;
+		this.modelo = modelo;
+		this.seguro = seguro;
+		this.ativo = true;
+
+	}
+
+
 	public String getPlaca() {
 		return placa;
 	}
