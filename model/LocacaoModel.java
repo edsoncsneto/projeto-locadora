@@ -3,7 +3,7 @@ package model;
 import java.util.Date;
 
 public class LocacaoModel {
-	private String cod_locacao;
+	private String codLocacao;
 	private ClienteModel cliente;
 	private Date dataInicio;
 	private Date dataFim;
@@ -11,9 +11,9 @@ public class LocacaoModel {
 	private FuncionarioModel funcionario;
 	private boolean ativo;
 
-	public LocacaoModel(String cod_locacao, ClienteModel cliente, Date dataInicio, Date dataFim, VeiculoModel[] veiculos,
+	public LocacaoModel(String codLocacao, ClienteModel cliente, Date dataInicio, Date dataFim, VeiculoModel[] veiculos,
 			FuncionarioModel funcionario) {
-		this.cod_locacao = cod_locacao;
+		this.codLocacao = codLocacao;
 		this.cliente = cliente;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
@@ -63,12 +63,12 @@ public class LocacaoModel {
 		this.funcionario = funcionario;
 	}
 
-	public String getCod_locacao() {
-		return cod_locacao;
+	public String getCodLocacao() {
+		return codLocacao;
 	}
 
-	public void setCod_locacao(String cod_locacao) {
-		this.cod_locacao = cod_locacao;
+	public void setCodLocacao(String codLocacao) {
+		this.codLocacao = codLocacao;
 	}
 
 	public boolean isAtivo() {

@@ -4,12 +4,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import model.SeguroModel;
+
+import javax.swing.plaf.SeparatorUI;
 
 public class SeguroController implements IController{
 
@@ -124,5 +123,14 @@ public class SeguroController implements IController{
 				System.out.println("---------------");
 			}
 		}
+	}
+
+	public Optional<SeguroModel> findById(String apolice){
+		for(SeguroModel seguro:seguros){
+			if(seguro.getApolice().equals(apolice)){
+				return Optional.of(seguro);
+			}
+		}
+		return Optional.empty();
 	}
 }

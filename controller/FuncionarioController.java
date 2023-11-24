@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 import model.FuncionarioModel;
@@ -108,5 +109,14 @@ public class FuncionarioController implements IController {
                 System.out.println("-----------------------------");
             }
         }
+    }
+
+    public Optional<FuncionarioModel> finById(String matricula){
+        for(FuncionarioModel funcionario:funcionarios){
+            if(funcionario.getMatricula().equals(matricula)){
+                return Optional.of(funcionario);
+            }
+        }
+        return Optional.empty();
     }
 }

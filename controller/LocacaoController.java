@@ -3,10 +3,13 @@ package controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 import model.LocacaoModel;
 import model.VeiculoModel;
+
+import javax.swing.text.html.Option;
 
 public class LocacaoController implements IController{
 
@@ -21,7 +24,7 @@ public class LocacaoController implements IController{
 	@Override
 	public void editar(String id) {
 		for (LocacaoModel locacao:locacoes){
-			if(locacao.getCod_locacao().equals(id)){
+			if(locacao.getCodLocacao().equals(id)){
 				Scanner sc = new Scanner(System.in);
 				System.out.println("[1] Código da locação");
 				System.out.println("[2] Cliente");
@@ -48,24 +51,24 @@ public class LocacaoController implements IController{
 	@Override
 	public void imprimir() {
 		for(LocacaoModel locacao:locacoes){
-			imprimirUm(locacao.getCod_locacao());
+			imprimirUm(locacao.getCodLocacao());
 		}
 	}
 
 	@Override
 	public void remover(String id) {
 		for(LocacaoModel locacao:locacoes){
-			if(locacao.getCod_locacao().equals(id)){
+			if(locacao.getCodLocacao().equals(id)){
 				locacao.setAtivo(false);
 			}
 		}
 	}
 
 	@Override
-	public void imprimirUm(String cod_locacao) {
+	public void imprimirUm(String codLocacao) {
 		for (LocacaoModel loc : locacoes){
-			if(loc.getCod_locacao().equals(cod_locacao)){
-				System.out.println("Código da locação: "+loc.getCod_locacao());
+			if(loc.getCodLocacao().equals(codLocacao)){
+				System.out.println("Código da locação: "+loc.getCodLocacao());
 				System.out.println("Código do cliente: "+loc.getCliente().getcodCliente());
 				System.out.println("Data de início: "+sdf.format(loc.getDataInicio()));
 				System.out.println("Data do fim: "+sdf.format(loc.getDataFim()));
@@ -81,5 +84,14 @@ public class LocacaoController implements IController{
 				}
 			}
 		}
+	}
+
+	public Optional<LocacaoModel> findById(String codLocacao){
+		for(LocacaoModel locacao:locacoes){
+			if(locacao.getCodLocacao().equals(codLocacao)){
+				return Optional.of(locacao);
+			}
+		}
+		return Optional.empty();
 	}
 }
