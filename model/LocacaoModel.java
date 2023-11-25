@@ -1,17 +1,18 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.List;
 
 public class LocacaoModel {
 	private String codLocacao;
 	private ClienteModel cliente;
-	private Date dataInicio;
-	private Date dataFim;
-	private VeiculoModel[] veiculos;
+	private LocalDate dataInicio;
+	private LocalDate dataFim;
+	private List<VeiculoModel> veiculos;
 	private FuncionarioModel funcionario;
 	private boolean ativo;
 
-	public LocacaoModel(String codLocacao, ClienteModel cliente, Date dataInicio, Date dataFim, VeiculoModel[] veiculos,
+	public LocacaoModel(String codLocacao, ClienteModel cliente, LocalDate dataInicio, LocalDate dataFim, List<VeiculoModel> veiculos,
 			FuncionarioModel funcionario) {
 		this.codLocacao = codLocacao;
 		this.cliente = cliente;
@@ -31,27 +32,27 @@ public class LocacaoModel {
 		this.cliente = cliente;
 	}
 
-	public Date getDataInicio() {
+	public LocalDate getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(Date dataInicio) {
+	public void setDataInicio(LocalDate dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public Date getDataFim() {
+	public LocalDate getDataFim() {
 		return dataFim;
 	}
 
-	public void setDataFim(Date dataFim) {
+	public void setDataFim(LocalDate dataFim) {
 		this.dataFim = dataFim;
 	}
 
-	public VeiculoModel[] getVeiculos() {
+	public List<VeiculoModel> getVeiculos() {
 		return veiculos;
 	}
 
-	public void setVeiculos(VeiculoModel[] veiculos) {
+	public void setVeiculos(List<VeiculoModel> veiculos) {
 		this.veiculos = veiculos;
 	}
 

@@ -21,38 +21,40 @@ public class FuncionarioController implements IController {
         for(FuncionarioModel func:funcionarios){
             if(func.getMatricula().equals(id)){
                 Scanner sc = new Scanner(System.in);
-                System.out.println("[1] Matricula \n" +
-                        "[2] Nome \n" +
-                        "[3] CPF \n" +
-                        "[4] Salario \n" +
-                        "[5] Supervisor \n");
-                System.out.print("Digite a opção: ");
+
+                System.out.print("\n[1] Editar matricula \n" +
+                        "[2] Editar nome \n" +
+                        "[3] Editar CPF \n" +
+                        "[4] Editar salario \n" +
+                        "[5] Editar supervisor \n");
+                System.out.print("DIGITE O QUE DESEJA EDITAR DO FUNCIONÁRIO: ");
                 String opcao = sc.nextLine();
 
                 switch (opcao) {
                     case "1":
-                        System.out.println("Digite a nova matrícula: ");
+                        System.out.print("Digite a nova matrícula: ");
                         String novaMatricula = sc.nextLine();
                         func.setMatricula(novaMatricula);
                         break;
                     case "2":
-                        System.out.println("Digite o novo nome: ");
+                        System.out.print("Digite o novo nome: ");
                         String novoNome = sc.nextLine();
                         func.setNome(novoNome);
                         break;
                     case "3":
-                        System.out.println("Digite o novo CPF: ");
+                        System.out.print("Digite o novo CPF: ");
                         String novoCpf = sc.nextLine();
                         func.setCpf(novoCpf);
                         break;
                     case "4":
-                        System.out.println("Digite o novo salário: ");
+                        System.out.print("Digite o novo salário: ");
                         double novoSalario = sc.nextDouble();
+                        sc.nextLine();
                         func.setSalario(novoSalario);
                         break;
                     case "5":
                         boolean verificacao = false;
-                        System.out.println("Digite matrícula do novo supervisor: ");
+                        System.out.print("Digite matrícula do novo supervisor: ");
                         String matriculaSupervisor = sc.nextLine();
                         for (FuncionarioModel supervisor : funcionarios) {
                             if (supervisor.getMatricula().equals(matriculaSupervisor)) {
@@ -65,9 +67,6 @@ public class FuncionarioController implements IController {
                         }
                         break;
                 }
-                //imprimindo usuário que foi editado
-                imprimirUm(func.getMatricula());
-                sc.close();
             }
         }
     }
@@ -82,10 +81,23 @@ public class FuncionarioController implements IController {
     @Override
     public void remover(String id) {
         for(FuncionarioModel func : funcionarios){
-            if(func.getMatricula().equals(id)){
-                funcionarios.remove(func);
+            if(func.getMatricula().equals(id) && !isSupervisor(func.getMatricula())){
+                    func.setAtivo(false);
+            } else if(func.getMatricula().equals(id) && isSupervisor(func.getMatricula())){
+                System.out.println("Não foi possível inativar o funcionário. Verifique se ele supervisiona alguém!");
             }
         }
+    }
+
+    public boolean isSupervisor(String matricula){
+        for(FuncionarioModel funcionario:funcionarios){
+            if(funcionario.getSupervisor()!=null){
+                if(funcionario.getSupervisor().getMatricula().equals(matricula)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
@@ -106,17 +118,25 @@ public class FuncionarioController implements IController {
                 } else {
                     System.out.println("Status: inativo");
                 }
-                System.out.println("-----------------------------");
             }
         }
     }
 
-    public Optional<FuncionarioModel> finById(String matricula){
+    public Optional<FuncionarioModel> findById(String matricula){
         for(FuncionarioModel funcionario:funcionarios){
             if(funcionario.getMatricula().equals(matricula)){
                 return Optional.of(funcionario);
             }
         }
         return Optional.empty();
+    }
+
+    public boolean funcionarioIsPresent(String matricula){
+        Optional<FuncionarioModel> funcionarioO = findById(matricula);
+        if(funcionarioO.isPresent()){
+            return true;
+        } else{
+            return false;
+        }
     }
 }
