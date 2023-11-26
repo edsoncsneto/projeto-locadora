@@ -1,6 +1,6 @@
 package model;
 
-public abstract class ClienteModel {
+public class ClienteModel {
 	protected String codCliente;
 	protected String telefone;
 	protected String bairro;
@@ -10,6 +10,8 @@ public abstract class ClienteModel {
 	protected String cep;
 	protected String numero;
 	protected boolean ativo;
+
+	public ClienteModel(){}
 
 	public ClienteModel(String codCliente, String telefone, String bairro, String logradouro, String cidade, String uf,
 			String cep, String numero) {

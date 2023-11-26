@@ -1,6 +1,7 @@
 package controller;
 
 import java.text.ParseException;
+import java.util.Optional;
 
 public interface IController {
 
@@ -13,5 +14,7 @@ public interface IController {
 	public void remover(String id);
 
 	public void imprimirUm(String id);
+
+	public Object getById(String id);
 	
 }
