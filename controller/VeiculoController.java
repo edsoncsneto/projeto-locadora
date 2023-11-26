@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 import model.VeiculoModel;
@@ -109,5 +110,14 @@ public class VeiculoController implements IController {
                 System.out.println("---------------");
             }
         }
+    }
+
+    public Optional<VeiculoModel> findById(String placa){
+        for(VeiculoModel veiculo:veiculos){
+            if(veiculo.getPlaca().equals(placa)){
+                return Optional.of(veiculo);
+            }
+        }
+        return  Optional.empty();
     }
 }

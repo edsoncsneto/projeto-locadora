@@ -15,6 +15,4 @@ public interface IController {
 
 	public void imprimirUm(String id);
 
-	public Object getById(String id);
-	
 }

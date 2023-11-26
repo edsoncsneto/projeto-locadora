@@ -1,16 +1,23 @@
 package controller;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
+import model.ClienteModel;
+import model.FuncionarioModel;
 import model.LocacaoModel;
 import model.VeiculoModel;
 
+import javax.swing.text.html.Option;
+
 public class LocacaoController implements IController{
 
-	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	ClienteController cc = new ClienteController();
+	VeiculoController vc = new VeiculoController();
+	FuncionarioController fc = new FuncionarioController();
+	DateTimeFormatter formataData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	List<LocacaoModel> locacoes = new ArrayList<>();
 
 	@Override
@@ -21,7 +28,7 @@ public class LocacaoController implements IController{
 	@Override
 	public void editar(String id) {
 		for (LocacaoModel locacao:locacoes){
-			if(locacao.getCod_locacao().equals(id)){
+			if(locacao.getCodLocacao().equals(id)){
 				Scanner sc = new Scanner(System.in);
 				System.out.println("[1] Código da locação");
 				System.out.println("[2] Cliente");
@@ -33,14 +40,83 @@ public class LocacaoController implements IController{
 				System.out.print("Digite a opção: ");
 				String opcao = sc.nextLine();
 
-				//TODO implementar switch case.
-				/*Regra de negócio: edição de datas assim como foi feito em seguro
-				 *Trocar um cliente por outro
-				 *Remover e adicionar veículos da lista
-				 * Trocar funcionário por outro. Obs.: funcionário que sai tem uma locação a menos.
-				 * 	locacao.getFuncionario.setQuantidadeLocacoes(locacao.getFuncionario()-1)
-				 */
+				switch(opcao){
+					case "1":
+						System.out.print("Digite o novo código da locação: ");
+						String novoCL = sc.nextLine();
+						locacao.setCodLocacao(novoCL);
+						break;
+					case "2":
+						System.out.print("Digite o código do novo cliente: ");
+						String novoCodCliente = sc.nextLine();
+						Optional<ClienteModel> clienteO = cc.findById(novoCodCliente);
 
+						if(clienteO.isEmpty()){
+							System.out.println("Não existe um cliente com esse código!");
+						} else{
+							locacao.setCliente(clienteO.get());
+							System.out.println("Cliente atualizado com sucesso!");
+						}
+
+						break;
+					case "3":
+						System.out.print("Digite a nova data de início: ");
+						String novaDataInicio = sc.nextLine();
+						LocalDate novaDI = LocalDate.parse(novaDataInicio, formataData);
+						locacao.setDataInicio(novaDI);
+						break;
+					case "4":
+						System.out.print("Digite a nova data final: ");
+						String novaDataFinal = sc.nextLine();
+						LocalDate novaDF = LocalDate.parse(novaDataFinal, formataData);
+						locacao.setDataFim(novaDF);
+						break;
+					case "5":
+						System.out.print("Digite a placa do veículo para remoção: ");
+						String placaRemove = sc.nextLine();
+						Optional<VeiculoModel> veiculoRemoveO = vc.findById(placaRemove);
+
+						if(veiculoRemoveO.isEmpty()){
+							System.out.println("Não existe esse veículo!");
+						} else{
+							if(locacao.getVeiculos().contains(veiculoRemoveO.get())){
+								List<VeiculoModel> veiculosAtualizados = locacao.getVeiculos();
+								veiculosAtualizados.remove(veiculoRemoveO.get());
+								locacao.setVeiculos(veiculosAtualizados);
+								System.out.println("Veículo removido com sucesso!");
+							} else{
+								System.out.println("Esse veículo não está na lista!");
+							}
+						}
+						break;
+					case "6":
+						System.out.print("Digite a placa do veículo para ser adicionado: ");
+						String placaAdd = sc.nextLine();
+						Optional<VeiculoModel> veiculoAddO = vc.findById(placaAdd);
+
+						if(veiculoAddO.isEmpty()){
+							System.out.println("Não existe um carro com essa placa!");
+						} else{
+							List<VeiculoModel> veiculosAtualizados = locacao.getVeiculos();
+							veiculosAtualizados.add(veiculoAddO.get());
+							locacao.setVeiculos(veiculosAtualizados);
+							System.out.println("Veículo adicionado com sucesso!");
+						}
+						break;
+					case "7":
+						System.out.print("Digite a matrícula do novo funcionário: ");
+						String novaMF = sc.nextLine();
+						Optional<FuncionarioModel> funcionarioO = fc.findById(novaMF);
+
+						if(funcionarioO.isEmpty()){
+							System.out.println("Não existe um funcionário com essa matrícula!");
+						} else{
+							locacao.getFuncionario().setQuantidadeLocacoes(locacao.getFuncionario().getQuantidadeLocacoes()-1);
+							locacao.setFuncionario(funcionarioO.get());
+							System.out.println("Funcionário atualizado com sucesso!");
+							locacao.getFuncionario().setQuantidadeLocacoes(locacao.getFuncionario().getQuantidadeLocacoes()+1);
+						}
+				}
 			}
 		}
 	}
@@ -48,27 +124,27 @@ public class LocacaoController implements IController{
 	@Override
 	public void imprimir() {
 		for(LocacaoModel locacao:locacoes){
-			imprimirUm(locacao.getCod_locacao());
+			imprimirUm(locacao.getCodLocacao());
 		}
 	}
 
 	@Override
 	public void remover(String id) {
 		for(LocacaoModel locacao:locacoes){
-			if(locacao.getCod_locacao().equals(id)){
+			if(locacao.getCodLocacao().equals(id)){
 				locacao.setAtivo(false);
 			}
 		}
 	}
 
 	@Override
-	public void imprimirUm(String cod_locacao) {
+	public void imprimirUm(String codLocacao) {
 		for (LocacaoModel loc : locacoes){
-			if(loc.getCod_locacao().equals(cod_locacao)){
-				System.out.println("Código da locação: "+loc.getCod_locacao());
+			if(loc.getCodLocacao().equals(codLocacao)){
+				System.out.println("Código da locação: "+loc.getCodLocacao());
 				System.out.println("Código do cliente: "+loc.getCliente().getcodCliente());
-				System.out.println("Data de início: "+sdf.format(loc.getDataInicio()));
-				System.out.println("Data do fim: "+sdf.format(loc.getDataFim()));
+				System.out.println("Data de início: "+loc.getDataInicio());
+				System.out.println("Data do fim: "+loc.getDataFim());
 				System.out.println("Matrícula do funcionário: "+loc.getFuncionario().getMatricula());
 				if(loc.isAtivo()){
 					System.out.println("Status: ativo");
@@ -81,5 +157,14 @@ public class LocacaoController implements IController{
 				}
 			}
 		}
+	}
+
+	public Optional<LocacaoModel> findById(String codLocacao){
+		for(LocacaoModel locacao:locacoes){
+			if(locacao.getCodLocacao().equals(codLocacao)){
+				return Optional.of(locacao);
+			}
+		}
+		return Optional.empty();
 	}
 }
