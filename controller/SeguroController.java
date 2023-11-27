@@ -133,4 +133,9 @@ public class SeguroController implements IController{
 		}
 		return Optional.empty();
 	}
+
+	public boolean seguroIsPresent(String apolice){
+		Optional<SeguroModel> seguroModelO = findById(apolice);
+        return seguroModelO.isPresent();
+	}
 }

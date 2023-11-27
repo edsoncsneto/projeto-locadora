@@ -197,5 +197,10 @@ public class ClienteController implements IController {
         }
         return Optional.empty();
     }
+    public boolean clienteIsPresent(String codCliente){
+        Optional<ClienteModel> clienteO = findById(codCliente);
+        return clienteO.isPresent();
+    }
+
 
 }

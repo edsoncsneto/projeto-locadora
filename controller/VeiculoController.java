@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
-
 import model.VeiculoModel;
 
 public class VeiculoController implements IController {
@@ -119,5 +118,9 @@ public class VeiculoController implements IController {
             }
         }
         return  Optional.empty();
+    }
+    public boolean veiculoIsPresent(String placa){
+        Optional<VeiculoModel> veiculoModelO = findById(placa);
+        return veiculoModelO.isPresent();
     }
 }
