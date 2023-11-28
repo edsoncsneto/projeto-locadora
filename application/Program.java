@@ -1,11 +1,12 @@
 package application;
 
-import controller.ClienteController;
-import controller.FuncionarioController;
-import controller.SeguroController;
-import controller.VeiculoController;
+import controller.*;
 import model.*;
 
+import java.sql.SQLOutput;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Scanner;
@@ -22,7 +23,8 @@ public class Program {
                 "[0] SAIR \n" +
                 "DIGITE A OPÇÃO: ");
     }
-    public static void main(String[] args){
+    public static void main(String[] args) throws ParseException {
+
 
         Scanner sc = new Scanner(System.in);
         FuncionarioController fc = new FuncionarioController( );
@@ -30,6 +32,8 @@ public class Program {
         SeguroController seguroController = new SeguroController();
         VeiculoController veiculoController = new VeiculoController();
         Locale.setDefault(Locale.US);
+        DateTimeFormatter ftd = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        ManutencaoController manutencaoController = new ManutencaoController();
         int opcao;
 
         do{
@@ -262,6 +266,165 @@ public class Program {
                     sc.nextLine();
                     break;
                 case 4:
+                    System.out.print("\n[1] Criar Locaçao \n" +
+                            "[2] Imprimir todas as Locações \n" +
+                            "[3] Imprimir uma Locação \n" +
+                            "[4] Editar uma Locação \n" +
+                            "[5] Remover uma Locação \n" +
+                            "DIGITE A OPÇÃO: ");
+                    opcao2 = sc.nextInt();
+                    sc.nextLine();
+                    if(opcao2 == 1){
+                        System.out.println("Digite o código da locação: ");
+                        String codLocacao = sc.nextLine();
+                        System.out.println("Digite a data de início da locação: ");
+                        String dataInicioLocacao = sc.nextLine();
+                        System.out.println("Digite a data de fim da locação: ");
+                        String dataFimLocacao = sc.nextLine();
+                        System.out.println("Quantos veículos serão locados? ");
+                        int quantLocacoes = sc.nextInt();
+                        sc.nextLine();
+                        int [] veiculos;
+                        for(int i=0; i<quantLocacoes; i++){
+
+                        }
+                    }
+
+
+
+                    opcoes();
+                    opcao = sc.nextInt();
+                    sc.nextLine();
+                    break;
+                case 5:
+                    System.out.print("\n[1] Criar Seguro \n" +
+                            "[2] Imprimir todos os Seguro \n" +
+                            "[3] Imprimir um Seguro \n" +
+                            "[4] Editar um Seguro \n" +
+                            "[5] Remover um Seguro \n" +
+                            "DIGITE A OPÇÃO: ");
+                    opcao2 = sc.nextInt();
+                    sc.nextLine();
+                    if(opcao2 == 1){
+                        System.out.println("Digite a apólice do Seguro: ");
+                        String apoliceSeguro = sc.nextLine();
+                        System.out.println("Digite o valor do Seguro: ");
+                        Double valorSeguro = sc.nextDouble();
+                        System.out.println("Digite a data inicial do Seguro: ");
+                        String dataInicialSeguro = sc.nextLine();
+                        System.out.println("Digite a data final do Seguro: ");
+                        String dataFinalSeguro = sc.nextLine();
+                        System.out.println("Digite o tipo de cobertura do Seguro: ");
+                        String tipoCoberturaSeguro = sc.nextLine();
+                        System.out.println("Digite o histórico do Seguro: ");
+                        String historicoSeguro = sc.nextLine();
+                        System.out.println("Digite a franquia do seguro: ");
+                        String franquiaSeguro = sc.nextLine();
+                        LocalDate novaDI = LocalDate.parse(dataInicialSeguro, ftd);
+                        LocalDate novaDF = LocalDate.parse(dataFinalSeguro,ftd);
+
+                       SeguroModel seguroModel = new SeguroModel(apoliceSeguro,valorSeguro,novaDI,
+                               novaDF, tipoCoberturaSeguro, historicoSeguro, franquiaSeguro);
+                       seguroController.criar(seguroModel);
+
+                    } else if (opcao2 == 2) {
+                        seguroController.imprimir();
+                    } else if (opcao2 == 3) {
+                        System.out.println("Digite a apolice do seguro: ");
+                        String apoliceSeguro = sc.nextLine();
+                        Optional<SeguroModel> seguroModelO = seguroController.findById(apoliceSeguro);
+                        if(seguroController.seguroIsPresent(apoliceSeguro)){
+                            seguroController.imprimirUm(apoliceSeguro);
+                        }
+                        else {
+                            System.out.println("Apolice inválida! ");
+                        }
+                    } else if (opcao2 == 4) {
+                        System.out.println("Digite a apolice do seguro que será editado: ");
+                        String apoliceSeguro = sc.nextLine();
+                        if(seguroController.seguroIsPresent(apoliceSeguro)){
+                            seguroController.editar(apoliceSeguro);
+                        }
+                        else {
+                            System.out.println("Apolice inválida!");
+                        }
+                    } else if (opcao2 == 5) {
+                        System.out.println("Digite a apolice do seguro a ser removido: ");
+                        String apoliceSeguro = sc.nextLine();
+                        if(seguroController.seguroIsPresent(apoliceSeguro)){
+                            seguroController.remover(apoliceSeguro);
+                        }
+                        else {
+                                System.out.println("Apolice inválida!");
+                        }
+                    }
+                    opcoes();
+                    opcao = sc.nextInt();
+                    sc.nextLine();
+                    break;
+                case 6:
+                    System.out.print("\n[1] Criar Manutenção \n" +
+                            "[2] Imprimir todas as Manutençoes \n" +
+                            "[3] Imprimir uma Manutenção \n" +
+                            "[4] Editar uma Manutenção \n" +
+                            "[5] Remover uma Manutenção \n" +
+                            "DIGITE A OPÇÃO: ");
+                    opcao2 = sc.nextInt();
+                    sc.nextLine();
+                    if(opcao2 == 1){
+                        System.out.println("Digite a ordem de serviço da manutenção: ");
+                        String ordemServicoManutencao = sc.nextLine();
+                        System.out.println("Digite a data da manutenção: ");
+                        String dataManutencao = sc.nextLine();
+                        LocalDate nDataManutencao = LocalDate.parse(dataManutencao,ftd);
+                        System.out.println("Digite o tipo da manutenção: ");
+                        String tipoManutencao = sc.nextLine();
+                        System.out.println("Digite a placa do veículo que será atribuido a manutenção: ");
+                        String placaVeiculo = sc.nextLine();
+                        Optional<VeiculoModel> veiculoModelO = veiculoController.findById(placaVeiculo);
+                        if(veiculoController.veiculoIsPresent(placaVeiculo)){
+                        ManutencaoModel manutencaoModel = new ManutencaoModel(ordemServicoManutencao,nDataManutencao,
+                                tipoManutencao, veiculoController.findById(placaVeiculo).get());
+                        manutencaoController.criar(manutencaoModel);
+                        }
+                        else{
+                            System.out.println("Veículo inexistente! ");
+                        }
+                    } else if (opcao2 == 2) {
+                        manutencaoController.imprimir();
+                    } else if (opcao2 == 3) {
+                        System.out.println("Digite a ordem de serviço da manutenção: ");
+                        String ordemServico = sc.nextLine();
+                        Optional<ManutencaoModel> manutencaoModelO = manutencaoController.findById(ordemServico);
+                        if(manutencaoController.manutencaoIsPresent(ordemServico)){
+                            seguroController.imprimirUm(ordemServico);
+                        }
+                        else {
+                            System.out.println("Ordem de serviço inválida! ");
+                        }
+                    } else if (opcao2 == 4) {
+                        System.out.println("Digite a ordem de serviço que será editado: ");
+                        String ordemServico = sc.nextLine();
+                        if(seguroController.seguroIsPresent(ordemServico)){
+                            seguroController.editar(ordemServico);
+                        }
+                        else {
+                            System.out.println("Ordem de serviço inválida!");
+                        }
+                    } else if (opcao2 == 5) {
+                        System.out.println("Digite a Ordem de serviço a ser removido: ");
+                        String ordemServico = sc.nextLine();
+                        if(seguroController.seguroIsPresent(ordemServico)){
+                            seguroController.remover(ordemServico);
+                        }
+                        else {
+                            System.out.println("Ordem de serviço inválida!");
+                        }
+                    }
+                    opcoes();
+                    opcao = sc.nextInt();
+                    sc.nextLine();
+                    break;
             }
 
 

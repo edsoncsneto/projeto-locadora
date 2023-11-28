@@ -21,9 +21,9 @@ public class SeguroController implements IController{
 	}
 
 	@Override
-	public void editar(String id) throws ParseException {
+	public void editar(String apolice) throws ParseException {
 		for(SeguroModel seguro:seguros){
-			if(seguro.getApolice().equals(id)){
+			if(seguro.getApolice().equals(apolice)){
 				Scanner sc = new Scanner(System.in);
 				System.out.println("[1] Apólice");
 				System.out.println("[2] Valor");

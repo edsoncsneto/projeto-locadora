@@ -103,4 +103,8 @@ public class ManutencaoController implements IController{
 		}
 		return Optional.empty();
 	}
+	public boolean manutencaoIsPresent(String ordemServico){
+		Optional<ManutencaoModel> manutencaoModelO = findById(ordemServico);
+		return manutencaoModelO.isPresent();
+	}
 }
