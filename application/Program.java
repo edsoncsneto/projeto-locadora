@@ -289,9 +289,6 @@ public class Program {
 
                         }
                     }
-
-
-
                     opcoes();
                     opcao = sc.nextInt();
                     sc.nextLine();
@@ -426,12 +423,6 @@ public class Program {
                     sc.nextLine();
                     break;
             }
-
-
-
-
-
-
         }
 
         while (opcao!=0);
