@@ -188,4 +188,14 @@ public class ClienteController implements IController {
         }
     }
 
-}
+    @Override
+    public Object getById(String id) {
+        for(ClienteModel cliente:clientes){
+            if(cliente.getcodCliente().equals(id)){
+                return cliente;
+            }
+            }
+    }
+    }
+
+
