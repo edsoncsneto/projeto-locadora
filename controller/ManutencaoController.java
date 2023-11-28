@@ -4,12 +4,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import model.ManutencaoModel;
+import model.SeguroModel;
 import model.VeiculoModel;
 
 import javax.management.modelmbean.ModelMBeanConstructorInfo;
@@ -95,5 +93,18 @@ public class ManutencaoController implements IController{
 				System.out.println("---------------");
 			}
 		}
+	}
+
+	public Optional<ManutencaoModel> findById(String ordemServico){
+		for(ManutencaoModel manutencao:manutencoes){
+			if(manutencao.getOrdemServico().equals(ordemServico)){
+				return Optional.of(manutencao);
+			}
+		}
+		return Optional.empty();
+	}
+	public boolean manutencaoIsPresent(String ordemServico){
+		Optional<ManutencaoModel> manutencaoModelO = findById(ordemServico);
+		return manutencaoModelO.isPresent();
 	}
 }

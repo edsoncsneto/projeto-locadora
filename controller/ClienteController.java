@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 import model.ClienteModel;
@@ -188,14 +189,18 @@ public class ClienteController implements IController {
         }
     }
 
-    @Override
-    public Object getById(String id) {
+    public Optional<ClienteModel> findById(String codCliente){
         for(ClienteModel cliente:clientes){
-            if(cliente.getcodCliente().equals(id)){
-                return cliente;
+            if(cliente.getcodCliente().equals(codCliente)){
+                return Optional.of(cliente);
             }
-            }
+        }
+        return Optional.empty();
     }
+    public boolean clienteIsPresent(String codCliente){
+        Optional<ClienteModel> clienteO = findById(codCliente);
+        return clienteO.isPresent();
     }
 
 
+}

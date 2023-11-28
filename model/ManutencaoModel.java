@@ -10,11 +10,12 @@ public class ManutencaoModel {
 	private boolean ativo;
 	private VeiculoModel veiculo;
 	
-	public ManutencaoModel(String ordemServico, LocalDate data, String tipoManutencao) {
+	public ManutencaoModel(String ordemServico, LocalDate data, String tipoManutencao, VeiculoModel veiculo) {
 		this.ordemServico = ordemServico;
 		this.data = data;
 		this.tipoManutencao = tipoManutencao;
 		this.ativo = true;
+		this.veiculo = veiculo;
 	}
 
 	public String getOrdemServico() {

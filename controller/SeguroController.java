@@ -4,12 +4,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import model.SeguroModel;
+
+import javax.swing.plaf.SeparatorUI;
 
 public class SeguroController implements IController{
 
@@ -22,9 +21,9 @@ public class SeguroController implements IController{
 	}
 
 	@Override
-	public void editar(String id) throws ParseException {
+	public void editar(String apolice) throws ParseException {
 		for(SeguroModel seguro:seguros){
-			if(seguro.getApolice().equals(id)){
+			if(seguro.getApolice().equals(apolice)){
 				Scanner sc = new Scanner(System.in);
 				System.out.println("[1] Apólice");
 				System.out.println("[2] Valor");
@@ -124,5 +123,19 @@ public class SeguroController implements IController{
 				System.out.println("---------------");
 			}
 		}
+	}
+
+	public Optional<SeguroModel> findById(String apolice){
+		for(SeguroModel seguro:seguros){
+			if(seguro.getApolice().equals(apolice)){
+				return Optional.of(seguro);
+			}
+		}
+		return Optional.empty();
+	}
+
+	public boolean seguroIsPresent(String apolice){
+		Optional<SeguroModel> seguroModelO = findById(apolice);
+        return seguroModelO.isPresent();
 	}
 }
