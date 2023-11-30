@@ -8,9 +8,18 @@ import java.util.Scanner;
 import model.ClienteModel;
 import model.ClientePFModel;
 import model.ClientePJModel;
+import view.ClienteView;
 
 public class ClienteController implements IController {
     //Lista que comporta tanto clientes pf, como clientes pj. Deve-se tratar essa diferença nos métodos se necessário com o instanceOf()
+    ClienteModel clienteModel;
+    ClienteView clienteView;
+
+    public ClienteController(ClienteModel clienteModel, ClienteView clienteView) {
+        this.clienteModel = clienteModel;
+        this.clienteView = clienteView;
+    }
+
     List<ClienteModel> clientes = new ArrayList<>();
 
     @Override

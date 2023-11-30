@@ -7,10 +7,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import model.SeguroModel;
+import view.SeguroView;
 
 import javax.swing.plaf.SeparatorUI;
 
 public class SeguroController implements IController{
+	SeguroModel seguroModel;
+	SeguroView seguroView;
+
+	public SeguroController(SeguroModel seguroModel, SeguroView seguroView) {
+		this.seguroModel = seguroModel;
+		this.seguroView = seguroView;
+	}
 
 	DateTimeFormatter formataData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	List<SeguroModel> seguros = new ArrayList<>();
@@ -82,7 +90,6 @@ public class SeguroController implements IController{
 						break;
 				}
 				imprimirUm(seguro.getApolice());
-				sc.close();
 			}
 		}
 	}

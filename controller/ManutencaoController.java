@@ -9,10 +9,18 @@ import java.util.*;
 import model.ManutencaoModel;
 import model.SeguroModel;
 import model.VeiculoModel;
+import view.ManutencaoView;
 
 import javax.management.modelmbean.ModelMBeanConstructorInfo;
 
 public class ManutencaoController implements IController{
+	ManutencaoModel manutencaoModel;
+	ManutencaoView manutencaoView;
+
+	public ManutencaoController(ManutencaoModel manutencaoModel, ManutencaoView manutencaoView) {
+		this.manutencaoModel = manutencaoModel;
+		this.manutencaoView = manutencaoView;
+	}
 	DateTimeFormatter formataData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	List<ManutencaoModel> manutencoes = new ArrayList<>();
 	

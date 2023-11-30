@@ -5,8 +5,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 import model.VeiculoModel;
+import view.VeiculoView;
 
 public class VeiculoController implements IController {
+    VeiculoModel veiculoModel;
+    VeiculoView veiculoView;
+
+    public VeiculoController(VeiculoModel veiculoModel, VeiculoView veiculoView) {
+        this.veiculoModel = veiculoModel;
+        this.veiculoView = veiculoView;
+    }
 
     List<VeiculoModel> veiculos = new ArrayList<>();
 

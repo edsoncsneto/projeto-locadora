@@ -9,14 +9,23 @@ import model.ClienteModel;
 import model.FuncionarioModel;
 import model.LocacaoModel;
 import model.VeiculoModel;
+import view.LocacaoView;
 
 import javax.swing.text.html.Option;
 
 public class LocacaoController implements IController{
+	ClienteController clienteController;
+	VeiculoController veiculoController;
+	FuncionarioController funcionarioController;
 
-	ClienteController cc = new ClienteController();
-	VeiculoController vc = new VeiculoController();
-	FuncionarioController fc = new FuncionarioController();
+	LocacaoModel locacaoModel;
+	LocacaoView locacaoView;
+
+	public LocacaoController(LocacaoModel locacaoModel, LocacaoView locacaoView) {
+		this.locacaoModel = locacaoModel;
+		this.locacaoView = locacaoView;
+	}
+
 	DateTimeFormatter formataData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	List<LocacaoModel> locacoes = new ArrayList<>();
 
@@ -49,7 +58,7 @@ public class LocacaoController implements IController{
 					case "2":
 						System.out.print("Digite o código do novo cliente: ");
 						String novoCodCliente = sc.nextLine();
-						Optional<ClienteModel> clienteO = cc.findById(novoCodCliente);
+						Optional<ClienteModel> clienteO = clienteController.findById(novoCodCliente);
 
 						if(clienteO.isEmpty()){
 							System.out.println("Não existe um cliente com esse código!");
@@ -74,7 +83,7 @@ public class LocacaoController implements IController{
 					case "5":
 						System.out.print("Digite a placa do veículo para remoção: ");
 						String placaRemove = sc.nextLine();
-						Optional<VeiculoModel> veiculoRemoveO = vc.findById(placaRemove);
+						Optional<VeiculoModel> veiculoRemoveO = veiculoController.findById(placaRemove);
 
 						if(veiculoRemoveO.isEmpty()){
 							System.out.println("Não existe esse veículo!");
@@ -92,7 +101,7 @@ public class LocacaoController implements IController{
 					case "6":
 						System.out.print("Digite a placa do veículo para ser adicionado: ");
 						String placaAdd = sc.nextLine();
-						Optional<VeiculoModel> veiculoAddO = vc.findById(placaAdd);
+						Optional<VeiculoModel> veiculoAddO = veiculoController.findById(placaAdd);
 
 						if(veiculoAddO.isEmpty()){
 							System.out.println("Não existe um carro com essa placa!");
@@ -106,7 +115,7 @@ public class LocacaoController implements IController{
 					case "7":
 						System.out.print("Digite a matrícula do novo funcionário: ");
 						String novaMF = sc.nextLine();
-						Optional<FuncionarioModel> funcionarioO = fc.findById(novaMF);
+						Optional<FuncionarioModel> funcionarioO = funcionarioController.findById(novaMF);
 
 						if(funcionarioO.isEmpty()){
 							System.out.println("Não existe um funcionário com essa matrícula!");
