@@ -59,7 +59,7 @@ public class VeiculoView {
         Optional<SeguroModel> seguroModelO = seguroController.findById(apoliceSeguro);
         if(seguroController.seguroIsPresent(apoliceSeguro)){
             VeiculoModel veiculoModel = new VeiculoModel(
-                    placaVeiculo,corVeiculo,marcaVeiculo,categoriaVeiculo,chassiVeiculo,modeloVeiculo,
+                    placaVeiculo, corVeiculo, marcaVeiculo, categoriaVeiculo, chassiVeiculo, modeloVeiculo,
                     seguroController.findById(apoliceSeguro).get());
             veiculoController.criar(veiculoModel);
             System.out.println("----------------------------");

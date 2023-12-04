@@ -94,6 +94,8 @@ public class VeiculoController implements IController {
 
     @Override
     public void imprimirUm(String placa) {
+        System.out.println("\nDADOS DO VEÍCULO ");
+        System.out.println("----------------------------");
         for (VeiculoModel veic : veiculos) {
             if (placa.equals(veic.getPlaca())) {
                 System.out.println("Placa: " + veic.getPlaca());
@@ -117,7 +119,6 @@ public class VeiculoController implements IController {
                 } else {
                     System.out.println("Status: inativo");
                 }
-                System.out.println("---------------");
             }
         }
     }

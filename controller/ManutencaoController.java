@@ -88,6 +88,8 @@ public class ManutencaoController implements IController{
 
 	@Override
 	public void imprimirUm(String ordemServico) {
+		System.out.println("\nDADOS DA MANUTENÇÃO ");
+		System.out.println("----------------------------");
 		for(ManutencaoModel manutencao : manutencoes){
 			if(ordemServico.equals(manutencao.getOrdemServico())){
 				System.out.println("Ordem de serviço: "+manutencao.getOrdemServico());

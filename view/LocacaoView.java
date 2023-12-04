@@ -74,6 +74,11 @@ public class LocacaoView {
                         LocacaoModel locacaoModel = new LocacaoModel(codLocacao,clienteController.findById(cpfCliente).get(),
                                 nDataInicioLocacao,nDataFimLocacao,veiculosLocacao,
                                 funcionarioController.findById(cpfFuncionario).get());
+
+                        locacaoController.criar(locacaoModel);
+                        System.out.println("----------------------------");
+                        System.out.println("Locação criada com sucesso!");
+                        System.out.println("----------------------------");
                     }
                 }
             }
@@ -97,6 +102,11 @@ public class LocacaoView {
                     }
                     LocacaoModel locacaoModel = new LocacaoModel(codLocacao,clienteController.findById(cnpjCliente).get(),
                             nDataInicioLocacao,nDataFimLocacao,veiculosLocacao, funcionarioController.findById(cpfFuncionario).get());
+
+                    locacaoController.criar(locacaoModel);
+                    System.out.println("----------------------------");
+                    System.out.println("Locação criada com sucesso!");
+                    System.out.println("----------------------------");
                 }
             }
         }

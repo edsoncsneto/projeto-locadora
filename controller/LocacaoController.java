@@ -148,6 +148,8 @@ public class LocacaoController implements IController{
 
 	@Override
 	public void imprimirUm(String codLocacao) {
+		System.out.println("\nDADOS DA LOCAÇÃO ");
+		System.out.println("----------------------------");
 		for (LocacaoModel loc : locacoes){
 			if(loc.getCodLocacao().equals(codLocacao)){
 				System.out.println("Código da locação: "+loc.getCodLocacao());
