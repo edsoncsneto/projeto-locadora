@@ -2,16 +2,11 @@ package application;
 
 import controller.*;
 import model.*;
+import model.exceptions.OpcaoInvalidaException;
 import view.*;
 
-import java.sql.SQLOutput;
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 
 public class Program {
 
@@ -43,35 +38,46 @@ public class Program {
         ManutencaoView manutencaoView = new ManutencaoView();
         ManutencaoController manutencaoController = new ManutencaoController(manutencaoModel, manutencaoView);
 
-        int opcao;
+        int opcao = 0;
 
-        do{
-            opcoes();
+        do {
+            try {
+                opcoes();
+                opcao = sc.nextInt();
+                sc.nextLine();
 
-            opcao = sc.nextInt();
-            sc.nextLine();
-            switch (opcao){
-                case 1:
-                    funcionarioView.funcionario(funcionarioController);
-                    break;
-                case 2:
-                    clienteView.cliente(clienteController);
-                    break;
-                case 3:
-                    veiculoView.veiculo(veiculoController, seguroController, clienteController);
-                    break;
-                case 4:
-                    locacaoView.locacao(locacaoController, clienteController, veiculoController, funcionarioController);
-                    break;
-                case 5:
-                    seguroView.seguro(seguroController);
-                    break;
-                case 6:
-                    manutencaoView.manutencao(manutencaoController, veiculoController, seguroController);
-                    break;
+                switch (opcao) {
+                    case 1:
+                        funcionarioView.funcionario(funcionarioController);
+                        break;
+                    case 2:
+                        clienteView.cliente(clienteController);
+                        break;
+                    case 3:
+                        veiculoView.veiculo(veiculoController, seguroController, clienteController);
+                        break;
+                    case 4:
+                        locacaoView.locacao(locacaoController, clienteController, veiculoController, funcionarioController);
+                        break;
+                    case 5:
+                        seguroView.seguro(seguroController);
+                        break;
+                    case 6:
+                        manutencaoView.manutencao(manutencaoController, veiculoController, seguroController);
+                        break;
+
+                    default:
+                        throw new OpcaoInvalidaException("Opção inválida!");
+                }
+            } catch (OpcaoInvalidaException e) {
+                System.out.println("Erro: " + e.getMessage());
+            } catch (InputMismatchException e) {
+                System.out.println("Erro: Por favor, digite um número inteiro.");
+                sc.nextLine();
+                opcao = -1;
             }
         }
-        while (opcao!=0);
+        while (opcao != 0);
     }
 
     public static void opcoes(){
