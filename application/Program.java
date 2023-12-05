@@ -65,6 +65,8 @@ public class Program {
                     case 6:
                         manutencaoView.manutencao(manutencaoController, veiculoController, seguroController);
                         break;
+                    case 0:
+                        break;
 
                     default:
                         throw new OpcaoInvalidaException("Opção inválida!");
