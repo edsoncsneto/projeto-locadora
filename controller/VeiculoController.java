@@ -20,12 +20,15 @@ public class VeiculoController implements IController {
         for(VeiculoModel veiculo:veiculos){
             if(veiculo.getPlaca().equals(id)){
                 Scanner sc = new Scanner(System.in);
+
+                System.out.println("\nEDITAR VEÍCULO ");
+                System.out.println("----------------------------");
                 System.out.println("[1] Placa \n" +
                         "[2] Cor \n" +
                         "[3] Marca \n" +
                         "[4] Categoria \n" +
-                        "[5] Modelo \n");
-                System.out.print("Digite a opção: ");
+                        "[5] Modelo \n \n");
+                System.out.print("DIGITE A OPÇÃO: ");
 
                 String opcao = sc.nextLine();
 

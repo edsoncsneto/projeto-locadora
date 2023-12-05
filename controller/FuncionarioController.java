@@ -22,12 +22,14 @@ public class FuncionarioController implements IController {
             if(func.getMatricula().equals(id)){
                 Scanner sc = new Scanner(System.in);
 
-                System.out.print("\n[1] Editar matricula \n" +
+                System.out.println("\nEDITAR FUNCIONÁRIO ");
+                System.out.println("----------------------------");
+                System.out.print("[1] Editar matricula \n" +
                         "[2] Editar nome \n" +
                         "[3] Editar CPF \n" +
                         "[4] Editar salario \n" +
-                        "[5] Editar supervisor \n");
-                System.out.print("DIGITE O QUE DESEJA EDITAR DO FUNCIONÁRIO: ");
+                        "[5] Editar supervisor \n \n");
+                System.out.print("DIGITE A OPÇÃO: ");
                 String opcao = sc.nextLine();
 
                 switch (opcao) {
@@ -63,7 +65,9 @@ public class FuncionarioController implements IController {
                             }
                         }
                         if (!verificacao) {
+                            System.out.println("----------------------------");
                             System.out.println("Não foi possível alterar o supervisor. Verifique a matrícula.");
+                            System.out.println("----------------------------");
                         }
                         break;
                 }
@@ -84,7 +88,9 @@ public class FuncionarioController implements IController {
             if(func.getMatricula().equals(id) && !isSupervisor(func.getMatricula())){
                     func.setAtivo(false);
             } else if(func.getMatricula().equals(id) && isSupervisor(func.getMatricula())){
+                System.out.println("----------------------------");
                 System.out.println("Não foi possível inativar o funcionário. Verifique se ele supervisiona alguém!");
+                System.out.println("----------------------------");
             }
         }
     }
@@ -104,10 +110,11 @@ public class FuncionarioController implements IController {
     public void imprimirUm(String matricula) {
         for (FuncionarioModel func : funcionarios) {
             if (func.getMatricula().equals(matricula)) {
-                System.out.println("-----------------------------");
+                System.out.println("\nDADOS DO FUNCIONÁRIO ");
+                System.out.println("----------------------------");
                 System.out.println("Matrícula: " + func.getMatricula());
-                System.out.println("CPF: " + func.getCpf());
                 System.out.println("Nome: " + func.getNome());
+                System.out.println("CPF: " + func.getCpf());
                 System.out.println("Quantidade de locações: " + func.getQuantidadeLocacoes());
                 System.out.println("Salário: " + func.getSalario());
                 if (func.getSupervisor() != null) {

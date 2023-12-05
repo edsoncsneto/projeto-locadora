@@ -23,6 +23,9 @@ public class ClienteController implements IController {
         for(ClienteModel cliente:clientes){
             if(cliente.getcodCliente().equals(id)){
                 Scanner sc = new Scanner(System.in);
+
+                System.out.println("\nEDITAR CLIENTE ");
+                System.out.println("----------------------------");
                 System.out.println("[1] Código cliente");
                 System.out.println("[2] Telefone");
                 System.out.println("[3] Bairro");
@@ -40,7 +43,7 @@ public class ClienteController implements IController {
                     System.out.println("[9] CNPJ");
                     System.out.println("[10] Razao social");
                 }
-                System.out.print("Digite a opção: ");
+                System.out.print("DIGITE A OPÇÃO: ");
                 int opcao = sc.nextInt();
                 sc.nextLine();
                 if (opcao >= 1 && opcao <= 8) {
@@ -120,7 +123,9 @@ public class ClienteController implements IController {
                         }
                     }
                 } else {
+                    System.out.println("----------------------------");
                     System.out.println("Opção inválida!");
+                    System.out.println("----------------------------");
                 }
                 imprimirUm(cliente.getcodCliente());
                 sc.close();
@@ -147,44 +152,40 @@ public class ClienteController implements IController {
 
     @Override
     public void imprimirUm(String cod_cliente) {
+        System.out.println("\nDADOS DO CLIENTE ");
+        System.out.println("----------------------------");
         for (ClienteModel cli : clientes) {
-            System.out.println("-----------------------------");
             if (cli.getcodCliente().equals(cod_cliente)) {
                 if (cli instanceof ClientePFModel) {
                     System.out.println("Código: " + cli.getcodCliente());
-                    System.out.println("Telefone: " + cli.getTelefone());
-                    System.out.println("Bairro: " + cli.getBairro());
-                    System.out.println("Logradouro: " + cli.getLogradouro());
-                    System.out.println("Cidade: " + cli.getCidade());
-                    System.out.println("UF: " + cli.getUf());
-                    System.out.println("CEP: " + cli.getCep());
-                    System.out.println("Número: " + cli.getNumero());
-                    if (cli.isAtivo()) {
-                        System.out.println("Status: ativo");
-                    } else {
-                        System.out.println("Status: inativo");
-                    }
                     System.out.println("Nome: " + ((ClientePFModel) cli).getNome());
                     System.out.println("CPF: " + ((ClientePFModel) cli).getCpf());
                     System.out.println("CNH: " + ((ClientePFModel) cli).getCnh());
-                } else if (cli instanceof ClientePJModel) {
-                    System.out.println("Código: " + cli.getcodCliente());
                     System.out.println("Telefone: " + cli.getTelefone());
+                    System.out.println("Logradouro: " + cli.getLogradouro() + ", " + cli.getNumero());
                     System.out.println("Bairro: " + cli.getBairro());
-                    System.out.println("Logradouro: " + cli.getLogradouro());
-                    System.out.println("Cidade: " + cli.getCidade());
-                    System.out.println("UF: " + cli.getUf());
+                    System.out.println("Cidade: " + cli.getCidade() + "-" + cli.getUf());
                     System.out.println("CEP: " + cli.getCep());
-                    System.out.println("Número: " + cli.getNumero());
                     if (cli.isAtivo()) {
                         System.out.println("Status: ativo");
                     } else {
                         System.out.println("Status: inativo");
                     }
+                } else if (cli instanceof ClientePJModel) {
+                    System.out.println("Código: " + cli.getcodCliente());
                     System.out.println("CNPJ: " + ((ClientePJModel) cli).getCnpj());
                     System.out.println("Razão social: " + ((ClientePJModel) cli).getRazaoSocial());
+                    System.out.println("Telefone: " + cli.getTelefone());
+                    System.out.println("Logradouro: " + cli.getLogradouro() + ", " + cli.getNumero());
+                    System.out.println("Bairro: " + cli.getBairro());
+                    System.out.println("Cidade: " + cli.getCidade() + "-" + cli.getUf());
+                    System.out.println("CEP: " + cli.getCep());
+                    if (cli.isAtivo()) {
+                        System.out.println("Status: ativo");
+                    } else {
+                        System.out.println("Status: inativo");
+                    }
                 }
-                System.out.println("-----------------------------");
             }
         }
     }

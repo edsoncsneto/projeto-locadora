@@ -25,6 +25,9 @@ public class SeguroController implements IController{
 		for(SeguroModel seguro:seguros){
 			if(seguro.getApolice().equals(apolice)){
 				Scanner sc = new Scanner(System.in);
+
+				System.out.println("\nEDITAR SEGURO ");
+				System.out.println("----------------------------");
 				System.out.println("[1] Apólice");
 				System.out.println("[2] Valor");
 				System.out.println("[3] Data início");
@@ -32,7 +35,8 @@ public class SeguroController implements IController{
 				System.out.println("[5] Tipo cobertura");
 				System.out.println("[6] Histórico sinistro");
 				System.out.println("[7] Franquia");
-				System.out.print("Digite a opção: ");
+				System.out.println("");
+				System.out.print("DIGITE A OPÇÃO: ");
 
 				String opcao = sc.nextLine();
 
@@ -95,7 +99,9 @@ public class SeguroController implements IController{
 		for(SeguroModel seguro:seguros){
 			if (seguro.getApolice().equals(id)){
 				if(!seguro.isAtivo()){
+					System.out.println("----------------------------");
 					System.out.println("Esse já não é um seguro ativo!");
+					System.out.println("----------------------------");
 				}else{
 					seguro.getVeiculo().setSeguro(null);
 					seguro.setAtivo(false);
@@ -106,6 +112,8 @@ public class SeguroController implements IController{
 
 	@Override
 	public void imprimirUm(String apolice) {
+		System.out.println("\nDADOS DO SEGURO ");
+		System.out.println("----------------------------");
 		for (SeguroModel seg : seguros){
 			if(apolice.equals(seg.getApolice())){
 				System.out.println("Apólice: "+seg.getApolice());
@@ -120,7 +128,6 @@ public class SeguroController implements IController{
 				}else{
 					System.out.println("Status: inativo");
 				}
-				System.out.println("---------------");
 			}
 		}
 	}

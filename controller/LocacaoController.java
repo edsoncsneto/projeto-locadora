@@ -167,4 +167,9 @@ public class LocacaoController implements IController{
 		}
 		return Optional.empty();
 	}
+
+	public boolean LocacaoIsPresent(String codLocacao){
+		Optional<LocacaoModel> locacaoModelO = findById(codLocacao);
+		return locacaoModelO.isPresent();
+	}
 }
