@@ -66,8 +66,8 @@ public class Program {
                         manutencaoView.manutencao(manutencaoController, veiculoController, seguroController);
                         break;
                     case 0:
+                        System.out.println("Encerrando sistema!");
                         break;
-
                     default:
                         throw new OpcaoInvalidaException("Opção inválida!");
                 }
