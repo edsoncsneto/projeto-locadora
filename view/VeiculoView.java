@@ -42,6 +42,7 @@ public class VeiculoView {
     }
 
     public void criarVeiculo(VeiculoController veiculoController, SeguroController seguroController) {
+        System.out.println("ALERTA! SÓ É POSSÍVEL CRIAR VEÍCULO, CASO O VEÍCULO POSSUA UM SEGURO, ENTÃO, CRIE UM VEÍUCLO ANTES!");
         System.out.println("Digite a placa do veículo: ");
         String placaVeiculo = sc.nextLine();
         System.out.println("Digite a cor do veículo: ");
@@ -78,7 +79,7 @@ public class VeiculoView {
         String placaVeiculo = sc.nextLine();
         Optional<VeiculoModel> veiculoModelO = veiculoController.findById(placaVeiculo);
         if(veiculoController.veiculoIsPresent(placaVeiculo)){
-            clienteController.imprimirUm(placaVeiculo);
+           veiculoController.imprimirUm(placaVeiculo);
         } else {
             System.out.println("----------------------------");
             System.out.println("Placa inválida! ");

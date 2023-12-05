@@ -46,6 +46,7 @@ public class ManutencaoView {
     }
 
     public void criarManutencao(ManutencaoController manutencaoController, VeiculoController veiculoController) {
+        System.out.println("SÓ É POSSÍVEL CRIAR UMA MANUTENÇÃO, CASO O VÉICULO EXISTA! CADASTRE UM VEÍCULO ANTES! ");
         System.out.println("Digite a ordem de serviço da manutenção: ");
         String ordemServicoManutencao = sc.nextLine();
         System.out.println("Digite a data da manutenção: ");

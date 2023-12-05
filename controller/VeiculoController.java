@@ -68,7 +68,6 @@ public class VeiculoController implements IController {
                         break;
                 }
                 imprimirUm(veiculo.getPlaca());
-                sc.close();
             }
         }
     }

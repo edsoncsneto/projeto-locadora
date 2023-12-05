@@ -73,6 +73,7 @@ public class Program {
                 }
             } catch (OpcaoInvalidaException e) {
                 System.out.println("Erro: " + e.getMessage());
+                opcao = -1;
             } catch (InputMismatchException e) {
                 System.out.println("Erro: Por favor, digite um número inteiro.");
                 sc.nextLine();

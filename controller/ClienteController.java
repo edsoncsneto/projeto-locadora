@@ -9,6 +9,8 @@ import model.ClienteModel;
 import model.ClientePFModel;
 import model.ClientePJModel;
 import view.ClienteView;
+import java.util.Iterator;
+
 
 public class ClienteController implements IController {
     //Lista que comporta tanto clientes pf, como clientes pj. Deve-se tratar essa diferença nos métodos se necessário com o instanceOf()
@@ -137,7 +139,6 @@ public class ClienteController implements IController {
                     System.out.println("----------------------------");
                 }
                 imprimirUm(cliente.getcodCliente());
-                sc.close();
             }
         }
 
@@ -152,12 +153,18 @@ public class ClienteController implements IController {
 
     @Override
     public void remover(String id) {
-        for(ClienteModel cliente:clientes){
-            if(cliente.getcodCliente().equals(id)){
-                clientes.remove(cliente);
+        Iterator<ClienteModel> iterator = clientes.iterator();
+        while (iterator.hasNext()) {
+            ClienteModel cliente = iterator.next();
+            if (cliente.getcodCliente().equals(id)) {
+                iterator.remove();
+                System.out.println("Cliente removido com sucesso.");
+                return;
             }
         }
+        System.out.println("Cliente não encontrado.");
     }
+
 
     @Override
     public void imprimirUm(String cod_cliente) {

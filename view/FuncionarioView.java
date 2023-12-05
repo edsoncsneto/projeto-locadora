@@ -2,32 +2,41 @@ package view;
 
 import controller.FuncionarioController;
 import model.FuncionarioModel;
+import model.exceptions.OpcaoInvalidaException;
+import java.util.*;
 
 import java.util.Optional;
 import java.util.Scanner;
 
 public class FuncionarioView {
     Scanner sc = new Scanner(System.in);
+    int opcao;
 
     public void funcionario(FuncionarioController funcionarioController) {
-        menu();
-        int opcao = sc.nextInt();
-        sc.nextLine();
-
-        if(opcao == 1){
-            criarFuncionario(funcionarioController);
-        } else if (opcao == 2) {
-            funcionarioController.imprimir();
-        } else if (opcao == 3) {
-           imprimirUmFuncionario(funcionarioController);
-        } else if (opcao == 4) {
-            editarFuncionario(funcionarioController);
-        } else if (opcao == 5) {
-            removerFuncionario(funcionarioController);
+        try {
+            menu();
+            if (opcao == 1) {
+                criarFuncionario(funcionarioController);
+            } else if (opcao == 2) {
+                funcionarioController.imprimir();
+            } else if (opcao == 3) {
+                imprimirUmFuncionario(funcionarioController);
+            } else if (opcao == 4) {
+                editarFuncionario(funcionarioController);
+            } else if (opcao == 5) {
+                removerFuncionario(funcionarioController);
+            }
+        } catch (OpcaoInvalidaException e) {
+            System.out.println("Erro: " + e.getMessage());
+            opcao = -1;
+        } catch (InputMismatchException e) {
+            System.out.println("Erro: Por favor, digite um valor numérico..");
+            sc.nextLine();
+            opcao = -1;
         }
     }
 
-    public void menu() {
+    public void menu() throws OpcaoInvalidaException {
         System.out.println("\nMENU FUNCIONÁRIO: ");
         System.out.println("----------------------------");
         System.out.print("[1] Criar Funcionário \n" +
@@ -36,6 +45,12 @@ public class FuncionarioView {
                 "[4] Editar um funcionário \n" +
                 "[5] Remover um funcionário \n \n" +
                 "DIGITE A OPÇÃO: ");
+        int opcao = sc.nextInt();
+        sc.nextLine();
+        if (opcao < 1 || opcao > 5) {
+            throw new OpcaoInvalidaException("Opção inválida!");
+        }
+        this.opcao = opcao;
     }
 
     public void criarFuncionario(FuncionarioController funcionarioController) {
