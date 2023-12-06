@@ -66,6 +66,7 @@ public class LocacaoView {
         System.out.println("ALERTA! SÓ É POSSÍVEL CRIAR LOCAÇÃO, CASO POSSUA UM VEICULO, UM CLIENTE E UM FUNCIONÁRIO CRIADO ENTÃO, CRIE ESSAS CLASSES ANTES!");
         try {
             ArrayList<VeiculoModel> veiculosLocacao = new ArrayList<VeiculoModel>();
+            ArrayList<VeiculoModel> veiculosLocados = new ArrayList<VeiculoModel>();
             System.out.println("Digite o código da locação: ");
             String codLocacao = sc.nextLine();
             System.out.println("Digite a data de início da locação: ");
@@ -80,34 +81,39 @@ public class LocacaoView {
             String tipoCliente = sc.nextLine().toUpperCase();
             //Lógica de Locacao para PF. APENAS 1 VEICULO
             if (tipoCliente.equals("PF")) {
-                System.out.println("Digite o CPF do Cliente: ");
-                String cpfCliente = sc.nextLine();
-                if (clienteController.clienteIsPresent(cpfCliente)) { //ERRO A PARTIR DAQUI
+                System.out.println("Digite o código do Cliente: ");
+                String codCliente = sc.nextLine();
+                if (clienteController.clienteIsPresent(codCliente)) {
                     System.out.println("Qual a placa do veículo que será locado?");
                     String placaVeiculo = sc.nextLine();
                     if (veiculoController.veiculoIsPresent(placaVeiculo)) {
-                        System.out.println("Qual o CPF do Funcionario que está realizando a locacao? ");
-                        String cpfFuncionario = sc.nextLine();
-                        if (funcionarioController.funcionarioIsPresent(cpfFuncionario)) {
-                            veiculosLocacao.add(veiculoController.findById(placaVeiculo).get());
-                            LocacaoModel locacaoModel = new LocacaoModel(codLocacao, clienteController.findById(cpfCliente).get(),
-                                    nDataInicioLocacao, nDataFimLocacao, veiculosLocacao,
-                                    funcionarioController.findById(cpfFuncionario).get());
-                            locacaoController.criar(locacaoModel);
-                            System.out.println("----------------------------");
-                            System.out.println("Locação criada com sucesso!");
-                            System.out.println("----------------------------");
+                        if(!veiculoController.veiculoIsLocado(veiculoController.findById(placaVeiculo).get())) {
+                            System.out.println("Qual a matrícula do Funcionario que está realizando a locacao? ");
+                            String matriculaFuncionario = sc.nextLine();
+                            if (funcionarioController.funcionarioIsPresent(matriculaFuncionario)) {
+                                veiculosLocacao.add(veiculoController.findById(placaVeiculo).get());
+                                LocacaoModel locacaoModel = new LocacaoModel(codLocacao, clienteController.findById(codCliente).get(),
+                                        nDataInicioLocacao, nDataFimLocacao, veiculosLocacao,
+                                        funcionarioController.findById(matriculaFuncionario).get());
+                                locacaoController.criar(locacaoModel);
+                                veiculosLocados.add(veiculoController.findById(placaVeiculo).get());
+                                System.out.println("----------------------------");
+                                System.out.println("Locação criada com sucesso!");
+                                System.out.println("----------------------------");
+                            }
+                        }else {
+                            System.out.println("Veículo já locado para outro cliente");
                         }
                     }
                 }
                 //LÓGICA PARA PJ. +DE 1 VEICULO
             } else if (tipoCliente.equals("PJ")) {
-                System.out.println("Digite o CNPJ do Cliente: ");
-                String cnpjCliente = sc.nextLine();
+                System.out.println("Digite o código do Cliente: ");
+                String codCliente = sc.nextLine();
                 System.out.println("Quantos veículos serão locados? ");
                 int quantLocacoes = sc.nextInt();
                 sc.nextLine();
-                if (clienteController.clienteIsPresent(cnpjCliente)) {
+                if (clienteController.clienteIsPresent(codCliente)) {
                     System.out.println("Qual o CPF do Funcionario que está realizando a locacao? ");
                     String cpfFuncionario = sc.nextLine();
                     if (funcionarioController.funcionarioIsPresent(cpfFuncionario)) {
@@ -115,10 +121,15 @@ public class LocacaoView {
                             System.out.println("Qual a placa do veículo que será locado?");
                             String placaVeiculo = sc.nextLine();
                             if (veiculoController.veiculoIsPresent(placaVeiculo)) {
-                                veiculosLocacao.add(veiculoController.findById(placaVeiculo).get());
+                                if(!veiculoController.veiculoIsLocado(veiculoController.findById(placaVeiculo).get())) {
+                                    veiculosLocacao.add(veiculoController.findById(placaVeiculo).get());
+                                    veiculosLocados.add(veiculoController.findById(placaVeiculo).get());
+                                }else {
+                                    System.out.println("Ao menos um veículo já está locado! ");
+                                }
                             }
                         }
-                        LocacaoModel locacaoModel = new LocacaoModel(codLocacao, clienteController.findById(cnpjCliente).get(),
+                        LocacaoModel locacaoModel = new LocacaoModel(codLocacao, clienteController.findById(codCliente).get(),
                                 nDataInicioLocacao, nDataFimLocacao, veiculosLocacao, funcionarioController.findById(cpfFuncionario).get());
 
                         locacaoController.criar(locacaoModel);

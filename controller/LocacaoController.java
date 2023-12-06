@@ -3,6 +3,7 @@ package controller;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 import model.ClienteModel;
@@ -40,12 +41,9 @@ public class LocacaoController implements IController{
 			if(locacao.getCodLocacao().equals(id)){
 				Scanner sc = new Scanner(System.in);
 				System.out.println("[1] Código da locação");
-				System.out.println("[2] Cliente");
-				System.out.println("[3] Data de início");
-				System.out.println("[4] Data do fim");
-				System.out.println("[5] Remover veículo");
-				System.out.println("[6] Adicionar veículo");
-				System.out.println("[7] Editar funcionário");
+				System.out.println("[2] Alterar data de início");
+				System.out.println("[3] Alterar data do fim");
+				System.out.println("[4] Remover veículo");
 				System.out.print("Digite a opção: ");
 				String opcao = sc.nextLine();
 
@@ -56,31 +54,26 @@ public class LocacaoController implements IController{
 						locacao.setCodLocacao(novoCL);
 						break;
 					case "2":
-						System.out.print("Digite o código do novo cliente: ");
-						String novoCodCliente = sc.nextLine();
-						Optional<ClienteModel> clienteO = clienteController.findById(novoCodCliente);
-
-						if(clienteO.isEmpty()){
-							System.out.println("Não existe um cliente com esse código!");
-						} else{
-							locacao.setCliente(clienteO.get());
-							System.out.println("Cliente atualizado com sucesso!");
+						try {
+							System.out.print("Digite a nova data de início: ");
+							String novaDataInicio = sc.nextLine();
+							LocalDate novaDI = LocalDate.parse(novaDataInicio, formataData);
+							locacao.setDataInicio(novaDI);
+						}catch (DateTimeParseException e) {
+							System.out.println("Erro: A data fornecida não está no formato esperado (dd/MM/yyyy).");
 						}
-
 						break;
 					case "3":
-						System.out.print("Digite a nova data de início: ");
-						String novaDataInicio = sc.nextLine();
-						LocalDate novaDI = LocalDate.parse(novaDataInicio, formataData);
-						locacao.setDataInicio(novaDI);
+						try {
+							System.out.print("Digite a nova data final: ");
+							String novaDataFinal = sc.nextLine();
+							LocalDate novaDF = LocalDate.parse(novaDataFinal, formataData);
+							locacao.setDataFim(novaDF);
+						}catch (DateTimeParseException e) {
+							System.out.println("Erro: A data fornecida não está no formato esperado (dd/MM/yyyy).");
+						}
 						break;
 					case "4":
-						System.out.print("Digite a nova data final: ");
-						String novaDataFinal = sc.nextLine();
-						LocalDate novaDF = LocalDate.parse(novaDataFinal, formataData);
-						locacao.setDataFim(novaDF);
-						break;
-					case "5":
 						System.out.print("Digite a placa do veículo para remoção: ");
 						String placaRemove = sc.nextLine();
 						Optional<VeiculoModel> veiculoRemoveO = veiculoController.findById(placaRemove);
@@ -98,33 +91,6 @@ public class LocacaoController implements IController{
 							}
 						}
 						break;
-					case "6":
-						System.out.print("Digite a placa do veículo para ser adicionado: ");
-						String placaAdd = sc.nextLine();
-						Optional<VeiculoModel> veiculoAddO = veiculoController.findById(placaAdd);
-
-						if(veiculoAddO.isEmpty()){
-							System.out.println("Não existe um carro com essa placa!");
-						} else{
-							List<VeiculoModel> veiculosAtualizados = locacao.getVeiculos();
-							veiculosAtualizados.add(veiculoAddO.get());
-							locacao.setVeiculos(veiculosAtualizados);
-							System.out.println("Veículo adicionado com sucesso!");
-						}
-						break;
-					case "7":
-						System.out.print("Digite a matrícula do novo funcionário: ");
-						String novaMF = sc.nextLine();
-						Optional<FuncionarioModel> funcionarioO = funcionarioController.findById(novaMF);
-
-						if(funcionarioO.isEmpty()){
-							System.out.println("Não existe um funcionário com essa matrícula!");
-						} else{
-							locacao.getFuncionario().setQuantidadeLocacoes(locacao.getFuncionario().getQuantidadeLocacoes()-1);
-							locacao.setFuncionario(funcionarioO.get());
-							System.out.println("Funcionário atualizado com sucesso!");
-							locacao.getFuncionario().setQuantidadeLocacoes(locacao.getFuncionario().getQuantidadeLocacoes()+1);
-						}
 				}
 			}
 		}

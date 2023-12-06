@@ -1,10 +1,12 @@
 package controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+import model.LocacaoModel;
 import model.ManutencaoModel;
 import model.VeiculoModel;
 import view.VeiculoView;
@@ -134,6 +136,17 @@ public class VeiculoController implements IController {
                 }
             }
         }
+    }
+
+    List<VeiculoModel> veiculosLocados = new ArrayList<>();
+
+    public void adicionarVeiculoLocado(VeiculoModel veiculo){
+        veiculosLocados.add(veiculo);
+    }
+
+    //Verificar se um veículo está locado
+    public boolean veiculoIsLocado(VeiculoModel veiculo){
+        return veiculosLocados.contains(veiculo);
     }
 
     public Optional<VeiculoModel> findById(String placa){
