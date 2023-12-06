@@ -4,9 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+
+import model.ManutencaoModel;
 import model.VeiculoModel;
+import view.VeiculoView;
 
 public class VeiculoController implements IController {
+    VeiculoModel veiculoModel;
+    VeiculoView veiculoView;
+
+    public VeiculoController(VeiculoModel veiculoModel, VeiculoView veiculoView) {
+        this.veiculoModel = veiculoModel;
+        this.veiculoView = veiculoView;
+    }
 
     List<VeiculoModel> veiculos = new ArrayList<>();
 
@@ -60,7 +70,6 @@ public class VeiculoController implements IController {
                         break;
                 }
                 imprimirUm(veiculo.getPlaca());
-                sc.close();
             }
         }
     }
@@ -74,18 +83,32 @@ public class VeiculoController implements IController {
 
     @Override
     public void remover(String id) {
-        for(VeiculoModel veiculo:veiculos){
-            if(veiculo.getPlaca().equals(id)){
-                veiculo.setAtivo(false);
-                veiculo.getManutencao().setAtivo(false);
-                veiculo.getSeguro().setAtivo(false);
+        if(veiculoIsPresent(id)){
+            for (VeiculoModel veiculo : veiculos) {
                 //inativando a manutenção e o seguro desse veículo
+                if (veiculo.getPlaca().equals(id)) {
+                    veiculo.setAtivo(false);
+                    if (veiculo.getManutencao() != null) {
+                        veiculo.getManutencao().setAtivo(false);
+                    }else {
+                        System.out.println("Manutenção NULA");
+                    }
+                    if(!veiculo.getSeguro().isAtivo()){
+                        System.out.println("Seguro já está inativo!");
+                    }else{
+                        veiculo.getSeguro().setAtivo(false);
+                    }
+                }
             }
+        }else {
+            System.out.println("Veículo Nulo");
         }
     }
 
     @Override
     public void imprimirUm(String placa) {
+        System.out.println("\nDADOS DO VEÍCULO ");
+        System.out.println("----------------------------");
         for (VeiculoModel veic : veiculos) {
             if (placa.equals(veic.getPlaca())) {
                 System.out.println("Placa: " + veic.getPlaca());
@@ -109,7 +132,6 @@ public class VeiculoController implements IController {
                 } else {
                     System.out.println("Status: inativo");
                 }
-                System.out.println("---------------");
             }
         }
     }

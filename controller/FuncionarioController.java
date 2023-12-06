@@ -7,8 +7,15 @@ import java.util.Scanner;
 
 import model.FuncionarioModel;
 import model.LocacaoModel;
+import view.FuncionarioView;
 
 public class FuncionarioController implements IController {
+    FuncionarioModel funcionarioModel;
+    FuncionarioView funcionarioView;
+    public FuncionarioController(FuncionarioModel funcionarioModel, FuncionarioView funcionarioView) {
+        this.funcionarioModel = funcionarioModel;
+        this.funcionarioView = funcionarioView;
+    }
     List<FuncionarioModel> funcionarios = new ArrayList<>();
 
     @Override

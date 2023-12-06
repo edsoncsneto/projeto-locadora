@@ -9,10 +9,18 @@ import java.util.*;
 import model.ManutencaoModel;
 import model.SeguroModel;
 import model.VeiculoModel;
+import view.ManutencaoView;
 
 import javax.management.modelmbean.ModelMBeanConstructorInfo;
 
 public class ManutencaoController implements IController{
+	ManutencaoModel manutencaoModel;
+	ManutencaoView manutencaoView;
+
+	public ManutencaoController(ManutencaoModel manutencaoModel, ManutencaoView manutencaoView) {
+		this.manutencaoModel = manutencaoModel;
+		this.manutencaoView = manutencaoView;
+	}
 	DateTimeFormatter formataData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	List<ManutencaoModel> manutencoes = new ArrayList<>();
 	
@@ -80,6 +88,8 @@ public class ManutencaoController implements IController{
 
 	@Override
 	public void imprimirUm(String ordemServico) {
+		System.out.println("\nDADOS DA MANUTENÇÃO ");
+		System.out.println("----------------------------");
 		for(ManutencaoModel manutencao : manutencoes){
 			if(ordemServico.equals(manutencao.getOrdemServico())){
 				System.out.println("Ordem de serviço: "+manutencao.getOrdemServico());

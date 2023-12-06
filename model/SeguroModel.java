@@ -14,9 +14,6 @@ public class SeguroModel {
 	private boolean ativo;
 	private VeiculoModel veiculo;
 
-	public SeguroModel(){
-	}
-
 	public SeguroModel(String apolice, double valor, LocalDate dataInicio, LocalDate dataFim, String tipoCobertura,
 			String historicoSinistro, String franquia) {
 

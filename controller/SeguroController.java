@@ -7,10 +7,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import model.SeguroModel;
+import model.VeiculoModel;
+import view.SeguroView;
 
 import javax.swing.plaf.SeparatorUI;
 
 public class SeguroController implements IController{
+	SeguroModel seguroModel;
+	SeguroView seguroView;
+
+	public SeguroController(SeguroModel seguroModel, SeguroView seguroView) {
+		this.seguroModel = seguroModel;
+		this.seguroView = seguroView;
+	}
 
 	DateTimeFormatter formataData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	List<SeguroModel> seguros = new ArrayList<>();
@@ -82,7 +91,6 @@ public class SeguroController implements IController{
 						break;
 				}
 				imprimirUm(seguro.getApolice());
-				sc.close();
 			}
 		}
 	}
@@ -96,14 +104,19 @@ public class SeguroController implements IController{
 
 	@Override
 	public void remover(String id) {
-		for(SeguroModel seguro:seguros){
-			if (seguro.getApolice().equals(id)){
-				if(!seguro.isAtivo()){
+		for (SeguroModel seguro : seguros) {
+			if (seguro.getApolice().equals(id)) {
+				if (!seguro.isAtivo()) {
 					System.out.println("----------------------------");
 					System.out.println("Esse já não é um seguro ativo!");
 					System.out.println("----------------------------");
-				}else{
-					seguro.getVeiculo().setSeguro(null);
+				} else {
+					VeiculoModel veiculo = seguro.getVeiculo();
+
+					if (veiculo != null) {
+						veiculo.setSeguro(null);
+					}
+
 					seguro.setAtivo(false);
 				}
 			}
